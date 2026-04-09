@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once 'koneksi.php'; //untuk koneksi ke db
+require_once 'database/koneksi.php'; //untuk koneksi ke db
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: auth.php');
@@ -33,8 +33,6 @@ if ($action === 'login') {
             $_SESSION['user_id']      = $user['id_user'];
             $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
             $_SESSION['email']        = $user['email'];
-
-            $_SESSION['role']         = $user['role'];
 
             header('Location: dashboard.php');
             exit;
@@ -87,6 +85,7 @@ if ($action === 'register') {
         $_SESSION['user_id']      = mysqli_insert_id($koneksi);
         $_SESSION['nama_lengkap'] = $nama;
         $_SESSION['email']        = $email;
+        $_SESSION['asal_sekolah'] = $sekolah;
         $_SESSION['role']         = 'user'; //mengisi sesuai default yg ada di db
 
         header('Location: dashboard.php');

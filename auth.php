@@ -65,6 +65,11 @@ if (isset($_SESSION['user_id'])) {
                 <input type="password" id="reg-password" name="password" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="Minimal 6 karakter">
                 <span id="err-reg-pass" class="text-red-500 text-xs hidden">Password minimal 6 karakter!</span>
             </div>
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1">Asal Sekolah</label>
+                <input type="asal_sekolah" id="reg-asal_sekolah" name="asal_sekolah" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="SMAN 2 Bojonegoro">
+                <span id="err-reg-asal_sekolah" class="text-red-500 text-xs hidden">Masukkan asal sekolahmu</span>
+            </div>
             <button type="submit" class="w-full bg-secondary text-white font-bold py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-secondary/30">Buat Akun</button>
             <p class="text-center text-sm text-slate-500 mt-4">Sudah punya akun? <button type="button" onclick="toggleForm('login')" class="text-primary font-bold hover:underline">Masuk</button></p>
         </form>
