@@ -37,6 +37,9 @@ session_start();
                         <a href="dashboard.php" class="w-full sm:w-auto px-8 py-4 bg-white text-purple-600 font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition duration-300">
                             Ke Dashboard Saya
                         </a>
+                        <a href="tes.php" class="w-full sm:w-auto px-8 py-4 bg-purple-700/50 text-white font-bold rounded-2xl hover:bg-purple-700/70 backdrop-blur-md transition duration-300 border border-purple-400/30">
+                            Ambil Tes Minat
+                        </a>
                     <?php else: ?>
                         <a href="tes.php" class="w-full sm:w-auto px-8 py-4 bg-white text-purple-600 font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition duration-300">
                             ✨ Mulai Tes Minat Bakat

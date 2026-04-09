@@ -53,14 +53,17 @@ if (isset($_SESSION['user_id'])) {
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1">Nama Lengkap</label>
                 <input type="text" id="reg-nama" name="nama_lengkap" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="Nama sesuai ijazah">
+                <span id="err-reg-nama" class="text-red-500 text-xs hidden">Nama lengkap tidak boleh kosong!</span>
             </div>
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1">Email</label>
                 <input type="email" id="reg-email" name="email" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="contoh@email.com">
+                <span id="err-reg-email" class="text-red-500 text-xs hidden">Email tidak boleh kosong!</span>
             </div>
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1">Password</label>
                 <input type="password" id="reg-password" name="password" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="Minimal 6 karakter">
+                <span id="err-reg-pass" class="text-red-500 text-xs hidden">Password minimal 6 karakter!</span>
             </div>
             <button type="submit" class="w-full bg-secondary text-white font-bold py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-secondary/30">Buat Akun</button>
             <p class="text-center text-sm text-slate-500 mt-4">Sudah punya akun? <button type="button" onclick="toggleForm('login')" class="text-primary font-bold hover:underline">Masuk</button></p>
@@ -84,16 +87,20 @@ if (isset($_SESSION['user_id'])) {
             }
         }
 
-        function validasiLogin() {
+        function validasiRegister() {
             let valid = true;
-            let email = document.getElementById('login-email').value;
-            let pass = document.getElementById('login-password').value;
+            let nama = document.getElementById('reg-nama').value;
+            let email = document.getElementById('reg-email').value;
+            let pass = document.getElementById('reg-password').value;
             
-            if(email === "") { document.getElementById('err-login-email').classList.remove('hidden'); valid = false; }
-            else { document.getElementById('err-login-email').classList.add('hidden'); }
+            if(nama === "") { document.getElementById('err-reg-nama').classList.remove('hidden'); valid = false; }
+            else { document.getElementById('err-reg-nama').classList.add('hidden'); }
             
-            if(pass === "") { document.getElementById('err-login-pass').classList.remove('hidden'); valid = false; }
-            else { document.getElementById('err-login-pass').classList.add('hidden'); }
+            if(email === "") { document.getElementById('err-reg-email').classList.remove('hidden'); valid = false; }
+            else { document.getElementById('err-reg-email').classList.add('hidden'); }
+            
+            if(pass === "" || pass.length < 6) { document.getElementById('err-reg-pass').classList.remove('hidden'); valid = false; }
+            else { document.getElementById('err-reg-pass').classList.add('hidden'); }
             
             return valid;
         }

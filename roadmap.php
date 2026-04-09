@@ -3,48 +3,96 @@
 // Fungsi: Query data dari tabel roadmap, tampilkan per semester dengan skill
 // MODE DEBUG: Menggunakan data dummy untuk testing UI
 
-// Simulasi data jurusan
-$jurusan = [
-    'id_jurusan' => 1,
-    'nama_jurusan' => 'Sistem Informasi',
-    'deskripsi_singkat' => 'Program studi yang mempelajari perancangan, pengembangan, dan pengelolaan sistem informasi untuk mendukung operasional bisnis modern.'
-];
+// Simulasi data jurusan berdasarkan parameter
+$jurusan_param = $_GET['jurusan'] ?? 'sistem_informasi';
 
-// Simulasi data roadmap per semester
-$roadmap_data = [
-    1 => [
-        ['nama_matkul' => 'Dasar Pemrograman', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'Logic, Syntax, Problem Solving'],
-        ['nama_matkul' => 'Pengantar Sistem Informasi', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'Konsep SI, Enterprise Systems, ERP']
+$jurusan_data = [
+    'sistem_informasi' => [
+        'id_jurusan' => 1,
+        'nama_jurusan' => 'Sistem Informasi',
+        'deskripsi_singkat' => 'Program studi yang mempelajari perancangan, pengembangan, dan pengelolaan sistem informasi untuk mendukung operasional bisnis modern.'
     ],
-    2 => [
-        ['nama_matkul' => 'Web Development', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'HTML, CSS, JavaScript, Responsive Design'],
-        ['nama_matkul' => 'Database Management', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'SQL, Normalisasi, Query Optimization']
-    ],
-    3 => [
-        ['nama_matkul' => 'Object Oriented Programming', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'OOP, Design Patterns, SOLID Principles'],
-        ['nama_matkul' => 'Sistem Basis Data Lanjut', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Advanced SQL, Indexing, Tuning']
-    ],
-    4 => [
-        ['nama_matkul' => 'Software Engineering', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'SDLC, Agile, Testing, Documentation'],
-        ['nama_matkul' => 'Jaringan Komputer', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'Networking, TCP/IP, Security']
-    ],
-    5 => [
-        ['nama_matkul' => 'Mobile App Development', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Android, iOS, Flutter, React Native'],
-        ['nama_matkul' => 'Business Process Analysis', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'BPM, Process Mapping, Optimization']
-    ],
-    6 => [
-        ['nama_matkul' => 'Cloud Computing & DevOps', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'AWS, Docker, CI/CD, Kubernetes'],
-        ['nama_matkul' => 'Information Security', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Cryptography, Threat Analysis, Compliance']
-    ],
-    7 => [
-        ['nama_matkul' => 'Data Analytics & Big Data', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Python, R, Hadoop, Spark, Visualization'],
-        ['nama_matkul' => 'Manajemen Proyek IT', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Project Management, Risk Assessment, Stakeholder']
-    ],
-    8 => [
-        ['nama_matkul' => 'AI & Machine Learning', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'ML Algorithms, Deep Learning, TensorFlow'],
-        ['nama_matkul' => 'Skripsi/Capstone Project', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Research, Implementation, Presentation']
+    'informatika' => [
+        'id_jurusan' => 2,
+        'nama_jurusan' => 'Informatika',
+        'deskripsi_singkat' => 'Program studi yang fokus pada ilmu komputer, algoritma, dan pengembangan perangkat lunak.'
     ]
 ];
+
+$jurusan = $jurusan_data[$jurusan_param] ?? $jurusan_data['sistem_informasi'];
+
+// Simulasi data roadmap per semester berdasarkan jurusan
+$roadmap_per_jurusan = [
+    'sistem_informasi' => [
+        1 => [
+            ['nama_matkul' => 'Dasar Pemrograman', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'Logic, Syntax, Problem Solving'],
+            ['nama_matkul' => 'Pengantar Sistem Informasi', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'Konsep SI, Enterprise Systems, ERP']
+        ],
+        2 => [
+            ['nama_matkul' => 'Web Development', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'HTML, CSS, JavaScript, Responsive Design'],
+            ['nama_matkul' => 'Database Management', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'SQL, Normalisasi, Query Optimization']
+        ],
+        3 => [
+            ['nama_matkul' => 'Object Oriented Programming', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'OOP, Design Patterns, SOLID Principles'],
+            ['nama_matkul' => 'Sistem Basis Data Lanjut', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Advanced SQL, Indexing, Tuning']
+        ],
+        4 => [
+            ['nama_matkul' => 'Software Engineering', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'SDLC, Agile, Testing, Documentation'],
+            ['nama_matkul' => 'Jaringan Komputer', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'Networking, TCP/IP, Security']
+        ],
+        5 => [
+            ['nama_matkul' => 'Mobile App Development', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Android, iOS, Flutter, React Native'],
+            ['nama_matkul' => 'Business Process Analysis', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'BPM, Process Mapping, Optimization']
+        ],
+        6 => [
+            ['nama_matkul' => 'Cloud Computing & DevOps', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'AWS, Docker, CI/CD, Kubernetes'],
+            ['nama_matkul' => 'Information Security', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Cryptography, Threat Analysis, Compliance']
+        ],
+        7 => [
+            ['nama_matkul' => 'Data Analytics & Big Data', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Python, R, Hadoop, Spark, Visualization'],
+            ['nama_matkul' => 'Manajemen Proyek IT', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Project Management, Risk Assessment, Stakeholder']
+        ],
+        8 => [
+            ['nama_matkul' => 'AI & Machine Learning', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'ML Algorithms, Deep Learning, TensorFlow'],
+            ['nama_matkul' => 'Skripsi/Capstone Project', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Research, Implementation, Presentation']
+        ]
+    ],
+    'informatika' => [
+        1 => [
+            ['nama_matkul' => 'Algoritma dan Pemrograman', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'Algorithm, Programming Logic'],
+            ['nama_matkul' => 'Matematika Diskrit', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'Discrete Math, Logic']
+        ],
+        2 => [
+            ['nama_matkul' => 'Struktur Data', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'Data Structures, Complexity'],
+            ['nama_matkul' => 'Sistem Operasi', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'OS Concepts, Process Management']
+        ],
+        3 => [
+            ['nama_matkul' => 'Basis Data', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'Database Design, SQL'],
+            ['nama_matkul' => 'Pemrograman Web', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Web Development, Frameworks']
+        ],
+        4 => [
+            ['nama_matkul' => 'Jaringan Komputer', 'kategori_matkul' => 'Fondasi', 'skill_didapat' => 'Networking, Protocols'],
+            ['nama_matkul' => 'Kecerdasan Buatan', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'AI, Machine Learning Basics']
+        ],
+        5 => [
+            ['nama_matkul' => 'Rekayasa Perangkat Lunak', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Software Engineering, SDLC'],
+            ['nama_matkul' => 'Keamanan Informasi', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Security, Cryptography']
+        ],
+        6 => [
+            ['nama_matkul' => 'Komputasi Awan', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Cloud Computing, DevOps'],
+            ['nama_matkul' => 'Data Mining', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Data Analysis, Mining Techniques']
+        ],
+        7 => [
+            ['nama_matkul' => 'Sistem Terdistribusi', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Distributed Systems, Scalability'],
+            ['nama_matkul' => 'Proyek Akhir', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Project Development, Research']
+        ],
+        8 => [
+            ['nama_matkul' => 'Magang Industri', 'kategori_matkul' => 'Profesional', 'skill_didapat' => 'Industry Experience, Real-world Application']
+        ]
+    ]
+];
+
+$roadmap_data = $roadmap_per_jurusan[$jurusan_param] ?? $roadmap_per_jurusan['sistem_informasi'];
 ?>
 <?php
 session_start();

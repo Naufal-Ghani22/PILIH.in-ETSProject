@@ -91,7 +91,7 @@ session_start();
         <!-- Action Section -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             
-            <a href="roadmap.php" 
+            <a href="roadmap.php?jurusan=sistem_informasi" 
                class="bg-primary text-white font-semibold py-4 px-6 rounded-2xl hover:opacity-90 transition text-center shadow-lg shadow-primary/30 flex items-center justify-center gap-3">
                 <span>📚 Lihat Roadmap Pembelajaran</span>
             </a>
