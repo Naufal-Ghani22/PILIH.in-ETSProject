@@ -5,6 +5,7 @@ if (isset($_SESSION['user_id'])) {
     header("Location: dashboard.php");
     exit;
 }
+$redirect = htmlspecialchars($_GET['redirect'] ?? 'dashboard.php');
 ?>
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
@@ -34,6 +35,7 @@ if (isset($_SESSION['user_id'])) {
 
         <form id="form-login" action="proses_auth.php" method="POST" class="space-y-5 block" onsubmit="return validasiLogin()">
             <input type="hidden" name="action" value="login">
+            <input type="hidden" name="redirect" value="<?= $redirect ?>">
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1">Email</label>
                 <input type="email" id="login-email" name="email" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="contoh@email.com">
@@ -50,6 +52,7 @@ if (isset($_SESSION['user_id'])) {
 
         <form id="form-register" action="proses_auth.php" method="POST" class="space-y-4 hidden" onsubmit="return validasiRegister()">
             <input type="hidden" name="action" value="register">
+            <input type="hidden" name="redirect" value="<?= $redirect ?>">
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1">Nama Lengkap</label>
                 <input type="text" id="reg-nama" name="nama_lengkap" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="Nama sesuai ijazah">

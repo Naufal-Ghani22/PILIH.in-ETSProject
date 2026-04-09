@@ -34,7 +34,11 @@ if ($action === 'login') {
             $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
             $_SESSION['email']        = $user['email'];
 
-            header('Location: dashboard.php');
+            $redirect = $_POST['redirect'] ?? 'dashboard.php';
+            $allowed_redirects = ['dashboard.php', 'tes.php', 'kampus.php', 'katalog_jurusan.php'];
+            if (!in_array($redirect, $allowed_redirects)) $redirect = 'dashboard.php';
+
+            header("Location: $redirect");
             exit;
         }
     }
@@ -88,7 +92,11 @@ if ($action === 'register') {
         $_SESSION['asal_sekolah'] = $sekolah;
         $_SESSION['role']         = 'user'; //mengisi sesuai default yg ada di db
 
-        header('Location: dashboard.php');
+        $redirect = $_POST['redirect'] ?? 'dashboard.php';
+        $allowed_redirects = ['dashboard.php', 'tes.php', 'kampus.php', 'katalog_jurusan.php'];
+        if (!in_array($redirect, $allowed_redirects)) $redirect = 'dashboard.php';
+
+        header("Location: $redirect");
         exit;
     } else {
         // Jika email sudah ada (unique constraint) atau error lainnya

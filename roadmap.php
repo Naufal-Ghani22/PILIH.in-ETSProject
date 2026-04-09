@@ -2,29 +2,31 @@
 // roadmap.php - Menampilkan timeline pembelajaran per semester
 
 require_once 'database/koneksi.php';
-$id_jurusan = isset($_GET['id_jurusan']) ? (int)$_GET['id_jurusan'] : 1; 
+$id_jurusan = isset($_GET['id_jurusan']) ? (int)$_GET['id_jurusan'] : 0; 
 
-// get jurusan
-$q_jurusan = mysqli_query($koneksi, "SELECT * FROM jurusan WHERE id_jurusan = $id_jurusan");
-if(mysqli_num_rows($q_jurusan) == 0) {
-    header("Location: dashboard.php");
-    exit;
-}
-$jurusan = mysqli_fetch_assoc($q_jurusan);
-
-// get roadmap
-$q_roadmap = mysqli_query($koneksi, "SELECT * FROM roadmap WHERE id_jurusan = $id_jurusan ORDER BY semester ASC, kategori_matkul ASC");
+$jurusan = null;
 $roadmap_data = [];
-while ($row = mysqli_fetch_assoc($q_roadmap)) {
-    $semester = $row['semester'];
-    if (!isset($roadmap_data[$semester])) {
-        $roadmap_data[$semester] = [];
+
+if ($id_jurusan !== 0) {
+    // get jurusan
+    $q_jurusan = mysqli_query($koneksi, "SELECT * FROM jurusan WHERE id_jurusan = $id_jurusan");
+    if(mysqli_num_rows($q_jurusan) > 0) {
+        $jurusan = mysqli_fetch_assoc($q_jurusan);
+
+        // get roadmap
+        $q_roadmap = mysqli_query($koneksi, "SELECT * FROM roadmap WHERE id_jurusan = $id_jurusan ORDER BY semester ASC, kategori_matkul ASC");
+        while ($row = mysqli_fetch_assoc($q_roadmap)) {
+            $semester = $row['semester'];
+            if (!isset($roadmap_data[$semester])) {
+                $roadmap_data[$semester] = [];
+            }
+            $roadmap_data[$semester][] = [
+                'nama_matkul' => $row['nama_matkul'],
+                'kategori_matkul' => $row['kategori_matkul'],
+                'skill_didapat' => $row['skill_didapat']
+            ];
+        }
     }
-    $roadmap_data[$semester][] = [
-        'nama_matkul' => $row['nama_matkul'],
-        'kategori_matkul' => $row['kategori_matkul'],
-        'skill_didapat' => $row['skill_didapat']
-    ];
 }
 ?>
 <?php
@@ -42,14 +44,25 @@ session_start();
     <?php include 'components/navbar.php'; ?>
     
     <main class="pt-16 pb-20 container mx-auto px-4 lg:px-12">
+        <?php if(!$jurusan): ?>
+            <div class="bg-white p-12 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center gap-4 my-20">
+                <div class="text-6xl mb-4">🗺️</div>
+                <h1 class="text-3xl font-bold text-slate-800">Roadmap Tidak Tersedia</h1>
+                <p class="text-slate-500 max-w-lg mb-4">Kami tidak dapat menemukan roadmap untuk jurusan yang Anda cari. Silakan jelajahi katalog jurusan kami.</p>
+                <div class="flex gap-4">
+                    <a href="katalog_jurusan.php" class="px-6 py-3 bg-primary text-white font-semibold rounded-full hover:shadow-lg transition">Lihat Katalog Jurusan</a>
+                </div>
+            </div>
+        <?php else: ?>
         
         <!-- Header -->
         <section class="mb-16">
-            <div class="flex items-center justify-between mb-4">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 gap-4">
                 <div>
                     <h1 class="text-4xl font-bold text-slate-800 mb-2">📚 <?= htmlspecialchars($jurusan['nama_jurusan']) ?></h1>
                     <p class="text-slate-600"><?= htmlspecialchars($jurusan['deskripsi_singkat']) ?></p>
                 </div>
+                <a href="katalog_jurusan.php" class="shrink-0 bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2.5 rounded-xl font-semibold transition">Katalog Lainnya</a>
             </div>
         </section>
 
@@ -140,6 +153,8 @@ session_start();
                 Cari Kampus Terbaik
             </button>
         </div>
+        
+        <?php endif; ?>
 
     </main>
 

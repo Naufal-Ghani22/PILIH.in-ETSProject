@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header('Location: auth.php?error=Silakan login terlebih dahulu!');
+    header('Location: auth.php?error=Silakan login terlebih dahulu!&redirect=tes.php');
     exit;
 }
 ?>

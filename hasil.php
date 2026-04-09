@@ -3,23 +3,20 @@ session_start();
 require_once 'database/koneksi.php';
 
 $id_hasil = isset($_GET['id_hasil']) ? (int)$_GET['id_hasil'] : 0;
-if ($id_hasil === 0) {
-    header("Location: dashboard.php");
-    exit;
-}
 
-$query = "SELECT h.id_hasil, h.skor_kecocokan, h.tanggal_tes, 
-                 j.id_jurusan, j.nama_jurusan, j.deskripsi_singkat, j.prospek_karir 
-          FROM hasil_tes h 
-          JOIN jurusan j ON h.id_jurusan_rekomendasi = j.id_jurusan 
-          WHERE h.id_hasil = $id_hasil";
+$hasil = null;
+if ($id_hasil !== 0) {
+    $query = "SELECT h.id_hasil, h.skor_kecocokan, h.tanggal_tes, 
+                     j.id_jurusan, j.nama_jurusan, j.deskripsi_singkat, j.prospek_karir 
+              FROM hasil_tes h 
+              JOIN jurusan j ON h.id_jurusan_rekomendasi = j.id_jurusan 
+              WHERE h.id_hasil = $id_hasil";
 
-$result = mysqli_query($koneksi, $query);
-if (mysqli_num_rows($result) === 0) {
-    header("Location: dashboard.php");
-    exit;
+    $result = mysqli_query($koneksi, $query);
+    if (mysqli_num_rows($result) > 0) {
+        $hasil = mysqli_fetch_assoc($result);
+    }
 }
-$hasil = mysqli_fetch_assoc($result);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -34,6 +31,17 @@ $hasil = mysqli_fetch_assoc($result);
     <?php include 'components/navbar.php'; ?>
     
     <main class="pt-32 pb-20 container mx-auto px-4 lg:px-12">
+        <?php if(!$hasil): ?>
+            <div class="bg-white p-12 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center gap-4 my-20">
+                <div class="text-6xl mb-4">🔍</div>
+                <h1 class="text-3xl font-bold text-slate-800">Visualisasi Tidak Tersedia</h1>
+                <p class="text-slate-500 max-w-lg mb-4">Hasil tes yang Anda cari tidak ditemukan atau ID tidak valid. Mungkin Anda belum menyelesaikan tes minat bakat Anda?</p>
+                <div class="flex gap-4">
+                    <a href="dashboard.php" class="px-6 py-3 bg-slate-100 text-slate-700 font-semibold rounded-full hover:bg-slate-200 transition">Kembali ke Dashboard</a>
+                    <a href="tes.php" class="px-6 py-3 bg-primary text-white font-semibold rounded-full hover:shadow-lg transition">Mulai Tes Minat</a>
+                </div>
+            </div>
+        <?php else: ?>
         
         <!-- Header Section -->
         <section class="text-center mb-12">
@@ -135,6 +143,8 @@ $hasil = mysqli_fetch_assoc($result);
                 </div>
             </div>
         </div>
+        
+        <?php endif; ?>
 
     </main>
 
