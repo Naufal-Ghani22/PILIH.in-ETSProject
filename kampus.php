@@ -57,7 +57,7 @@ $campuses = [
                         <span class="font-semibold text-slate-700"><?= $k['biaya'] ?></span>
                     </div>
                 </div>
-                <button class="w-full py-2 bg-slate-50 border border-slate-200 text-slate-600 rounded-xl font-semibold hover:bg-primary hover:text-white transition">Lihat Jurusan Tersedia</button>
+                <button class="w-full py-2 bg-slate-50 border border-slate-200 text-slate-950 rounded-xl font-semibold hover:bg-primary hover:text-white transition">Lihat Jurusan Tersedia</button>
             </div>
             <?php endforeach; ?>
         </div>
