@@ -62,8 +62,8 @@ if (isset($_SESSION['user_id'])) {
             </div>
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1">Password</label>
-                <input type="password" id="reg-password" name="password" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="Minimal 6 karakter">
-                <span id="err-reg-pass" class="text-red-500 text-xs hidden">Password minimal 6 karakter!</span>
+                <input type="password" id="reg-password" name="password" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="Minimal 8 karakter">
+                <span id="err-reg-pass" class="text-red-500 text-xs hidden">Password minimal 8 karakter!</span>
             </div>
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1">Asal Sekolah</label>
@@ -105,7 +105,7 @@ if (isset($_SESSION['user_id'])) {
                 if(email === "") { document.getElementById('err-reg-email').classList.remove('hidden'); valid = false; }
                 else { document.getElementById('err-reg-email').classList.add('hidden'); }
                 
-                if(pass === "" || pass.length < 6) { document.getElementById('err-reg-pass').classList.remove('hidden'); valid = false; }
+                if(pass === "" || pass.length < 8) { document.getElementById('err-reg-pass').classList.remove('hidden'); valid = false; }
                 else { document.getElementById('err-reg-pass').classList.add('hidden'); }
 
                 // Tambahkan validasi sekolah di sini

@@ -1,20 +1,25 @@
 <?php
-// hasil.php - Halaman Read Only untuk menampilkan hasil tes
-// Pattern: PRG (Post/Redirect/Get) - Hanya baca data, tidak proses ulang
-// MODE DEBUG: Menggunakan data dummy untuk testing UI
-
-// Simulasi data hasil tes (Ganti dengan query DB nanti)
-$hasil = [
-    'id_hasil' => 1,
-    'nama_jurusan' => 'Sistem Informasi',
-    'skor_kecocokan' => 92,
-    'tanggal_tes' => '2026-04-09 14:30:00',
-    'deskripsi_singkat' => 'Belajar merancang dan mengembangkan sistem informasi untuk berbagai industri. Program ini fokus pada pemrograman, database, dan teknologi informasi terkini.',
-    'prospek_karir' => 'Lulusan Sistem Informasi memiliki prospek karir yang gemilang sebagai Software Developer, Database Administrator, System Analyst, IT Consultant, dan berbagai posisi strategis di perusahaan teknologi global. Gaji rata-rata entry level mencapai 4-6 juta rupiah per bulan.'
-];
-?>
-<?php
 session_start();
+require_once 'database/koneksi.php';
+
+$id_hasil = isset($_GET['id_hasil']) ? (int)$_GET['id_hasil'] : 0;
+if ($id_hasil === 0) {
+    header("Location: dashboard.php");
+    exit;
+}
+
+$query = "SELECT h.id_hasil, h.skor_kecocokan, h.tanggal_tes, 
+                 j.id_jurusan, j.nama_jurusan, j.deskripsi_singkat, j.prospek_karir 
+          FROM hasil_tes h 
+          JOIN jurusan j ON h.id_jurusan_rekomendasi = j.id_jurusan 
+          WHERE h.id_hasil = $id_hasil";
+
+$result = mysqli_query($koneksi, $query);
+if (mysqli_num_rows($result) === 0) {
+    header("Location: dashboard.php");
+    exit;
+}
+$hasil = mysqli_fetch_assoc($result);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -91,7 +96,7 @@ session_start();
         <!-- Action Section -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             
-            <a href="roadmap.php?jurusan=sistem_informasi" 
+            <a href="roadmap.php?id_jurusan=<?= urlencode($hasil['id_jurusan']) ?>" 
                class="bg-primary text-white font-semibold py-4 px-6 rounded-2xl hover:opacity-90 transition text-center shadow-lg shadow-primary/30 flex items-center justify-center gap-3">
                 <span>📚 Lihat Roadmap Pembelajaran</span>
             </a>

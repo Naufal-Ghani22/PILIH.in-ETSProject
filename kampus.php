@@ -1,13 +1,16 @@
 <?php
-// Nantinya ini diganti query: $result = mysqli_query($conn, "SELECT * FROM campuses");
-// Sementara pakai Array Dummy agar kamu bisa mendesain UI-nya hari ini juga
-$campuses = [
-    ["nama" => "UPN 'Veteran' Jawa Timur", "lokasi" => "Surabaya", "akreditasi" => "A", "biaya" => "Rp 3.000.000 - Rp 8.000.000 / SMT"],
-    ["nama" => "Universitas Airlangga", "lokasi" => "Surabaya", "akreditasi" => "Unggul", "biaya" => "Rp 5.000.000 - Rp 15.000.000 / SMT"],
-    ["nama" => "Institut Teknologi Sepuluh Nopember", "lokasi" => "Surabaya", "akreditasi" => "Unggul", "biaya" => "Rp 4.000.000 - Rp 12.000.000 / SMT"],
-    ["nama" => "Universitas Brawijaya", "lokasi" => "Malang", "akreditasi" => "A", "biaya" => "Rp 3.500.000 - Rp 10.000.000 / SMT"],
-    ["nama" => "Universitas Negeri Surabaya", "lokasi" => "Surabaya", "akreditasi" => "A", "biaya" => "Rp 2.500.000 - Rp 7.000.000 / SMT"]
-];
+require_once 'database/koneksi.php';
+$query = "SELECT * FROM kampus ORDER BY nama_kampus ASC";
+$result = mysqli_query($koneksi, $query);
+$campuses = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $campuses[] = [
+        "nama" => $row['nama_kampus'],
+        "lokasi" => $row['lokasi'],
+        "akreditasi" => $row['akreditasi'],
+        "biaya" => $row['estimasi_biaya']
+    ];
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">

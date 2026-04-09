@@ -9,6 +9,15 @@ if (!isset($_SESSION['user_id'])) {
 // Simulasi Data User (Nanti diganti query ke tabel users)
 $nama_user = $_SESSION['nama_lengkap'] ?? "Calon Mahasiswa Hebat";
 $email_user = $_SESSION['email'] ?? "user@pilihin.com";
+$user_id = $_SESSION['user_id'];
+
+require_once 'database/koneksi.php';
+$query_riwayat = "SELECT h.*, j.nama_jurusan, j.kategori_relevan, j.id_jurusan 
+                  FROM hasil_tes h 
+                  JOIN jurusan j ON h.id_jurusan_rekomendasi = j.id_jurusan 
+                  WHERE h.id_user = $user_id 
+                  ORDER BY h.tanggal_tes DESC";
+$riwayat_result = mysqli_query($koneksi, $query_riwayat);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -41,17 +50,30 @@ $email_user = $_SESSION['email'] ?? "user@pilihin.com";
         <section class="w-full lg:w-2/3 space-y-6">
             <h3 class="text-2xl font-bold text-slate-800 mb-6">Riwayat Rekomendasimu</h3>
             
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="bg-green-100 text-green-600 p-4 rounded-2xl font-bold text-xl">95%</div>
-                    <div>
-                        <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Tes: 8 April 2026</p>
-                        <h4 class="text-xl font-bold text-primary">Sistem Informasi</h4>
-                        <p class="text-sm text-slate-500">Minat dominan: Logika & Analisis Bisnis</p>
+            <?php if (mysqli_num_rows($riwayat_result) > 0): ?>
+                <?php while($row = mysqli_fetch_assoc($riwayat_result)): ?>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-green-100 text-green-600 p-4 rounded-2xl font-bold text-xl"><?= (int)$row['skor_kecocokan'] ?>%</div>
+                        <div>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Tes: <?= date('d M Y', strtotime($row['tanggal_tes'])) ?></p>
+                            <h4 class="text-xl font-bold text-primary"><?= htmlspecialchars($row['nama_jurusan']) ?></h4>
+                            <p class="text-sm text-slate-500">Minat dominan: <?= htmlspecialchars($row['kategori_relevan'] ?? 'Teknologi') ?></p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 shrink-0">
+                        <a href="hasil.php?id_hasil=<?= $row['id_hasil'] ?>" class="px-6 py-2 bg-slate-100 text-slate-700 font-semibold rounded-full hover:bg-slate-200 transition text-center">Detail Hasil</a>
+                        <a href="roadmap.php?id_jurusan=<?= urlencode($row['id_jurusan']) ?>" class="px-6 py-2 bg-primary text-white font-semibold rounded-full hover:shadow-lg transition text-center">Lihat Roadmap</a>
                     </div>
                 </div>
-                <a href="roadmap.php?jurusan=sistem_informasi" class="shrink-0 px-6 py-2 bg-primary text-white font-semibold rounded-full hover:shadow-lg transition">Lihat Roadmap</a>
-            </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center gap-4">
+                    <div class="text-5xl">🤷‍♂️</div>
+                    <p class="text-slate-500">Belum ada riwayat tes minat.<br>Mulai tes pertamamu sekarang!</p>
+                    <a href="tes.php" class="mt-2 px-6 py-2 bg-primary text-white font-semibold rounded-full hover:shadow-lg transition">Mulai Tes Minat</a>
+                </div>
+            <?php endif; ?>
 
             </section>
 

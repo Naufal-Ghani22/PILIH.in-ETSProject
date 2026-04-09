@@ -22,16 +22,20 @@ foreach ($jawaban as $nilai) {
 
 $skor_kecocokan = $count > 0 ? min(100, max(0, round(($total / ($count * 5)) * 100))) : 0;
 
-// Simulasi hasil rekomendasi berdasarkan skor
-$_SESSION['hasil_terakhir'] = [
-    'id_hasil' => 1,
-    'nama_jurusan' => 'Sistem Informasi',
-    'skor_kecocokan' => $skor_kecocokan,
-    'tanggal_tes' => date('Y-m-d H:i:s'),
-    'deskripsi_singkat' => 'Belajar merancang dan mengembangkan sistem informasi untuk berbagai industri. Program ini fokus pada pemrograman, database, dan teknologi informasi terkini.',
-    'prospek_karir' => 'Lulusan Sistem Informasi memiliki prospek karir yang gemilang sebagai Software Developer, Database Administrator, System Analyst, IT Consultant, dan berbagai posisi strategis di perusahaan teknologi global.'
-];
+require_once 'database/koneksi.php';
 
-header('Location: hasil.php?id_hasil=1');
+// Simulasi rekomendasi jurusan berdasarkan skor (skor tinggi = id 1, rendah = id 2 untuk dummy ini)
+$id_jurusan_rekomendasi = $skor_kecocokan > 75 ? 1 : 2; 
+
+$user_id = $_SESSION['user_id'];
+$query_insert = "INSERT INTO hasil_tes (id_user, id_jurusan_rekomendasi, skor_kecocokan) 
+                 VALUES ($user_id, $id_jurusan_rekomendasi, $skor_kecocokan)";
+
+if (mysqli_query($koneksi, $query_insert)) {
+    $id_hasil = mysqli_insert_id($koneksi);
+    header("Location: hasil.php?id_hasil=$id_hasil");
+} else {
+    header("Location: tes.php?error=Gagal menyimpan hasil tes");
+}
 exit;
 ?>

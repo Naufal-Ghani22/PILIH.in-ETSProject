@@ -25,21 +25,15 @@ if (!isset($_SESSION['user_id'])) {
 
             <form action="proses_tes.php" method="POST" class="space-y-8">
                 <?php
-                $questions = [
-                    1 => 'Saya suka memecahkan masalah logika dengan algoritma.',
-                    2 => 'Saya menikmati bekerja dengan angka dan data.',
-                    3 => 'Saya ingin membuat aplikasi yang membantu banyak orang.',
-                    4 => 'Saya tertarik pada studi bisnis dan pengelolaan perusahaan.',
-                    5 => 'Saya merasa senang merancang desain visual yang menarik.',
-                    6 => 'Saya suka berkomunikasi dan bekerja dalam tim proyek.',
-                    7 => 'Saya ingin memahami bagaimana sistem informasi dibangun.',
-                    8 => 'Saya tertarik belajar tentang keamanan dan jaringan komputer.'
-                ];
-
-                foreach ($questions as $id => $text):
+                require_once 'database/koneksi.php';
+                $result = mysqli_query($koneksi, "SELECT * FROM questions ORDER BY id_soal ASC");
+                $no = 1;
+                while ($row = mysqli_fetch_assoc($result)):
+                    $id = $row['id_soal'];
+                    $text = $row['teks_pertanyaan'];
                 ?>
                 <div class="rounded-3xl border border-slate-200 p-6 shadow-sm">
-                    <h3 class="text-lg font-semibold text-slate-800 mb-4">Pertanyaan <?= $id ?></h3>
+                    <h3 class="text-lg font-semibold text-slate-800 mb-4">Pertanyaan <?= $no++ ?></h3>
                     <p class="text-slate-600 mb-4"><?= htmlspecialchars($text) ?></p>
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
                         <?php for ($score = 1; $score <= 5; $score++): ?>
@@ -50,7 +44,7 @@ if (!isset($_SESSION['user_id'])) {
                         <?php endfor; ?>
                     </div>
                 </div>
-                <?php endforeach; ?>
+                <?php endwhile; ?>
 
                 <div class="flex flex-col md:flex-row items-center gap-4">
                     <button type="submit" class="bg-primary text-white font-bold px-6 py-4 rounded-2xl hover:bg-primary/90 transition w-full md:w-auto">Selesai dan Lihat Hasil</button>
