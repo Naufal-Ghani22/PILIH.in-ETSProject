@@ -23,7 +23,7 @@
     </script>
 </head>
 
-<body class="bg-gradient-to-r from-primary to-secondary min-h-screen flex items-center justify-center">
+<body class="bg-linear-to-r from-primary to-secondary min-h-screen flex items-center justify-center">
 
     <div class="bg-white p-8 rounded-2xl shadow-2xl w-96">
 
