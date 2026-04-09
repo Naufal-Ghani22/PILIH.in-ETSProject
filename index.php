@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 session_start();
 ?>
 <!DOCTYPE html>
@@ -82,3 +83,9 @@ session_start();
 
 </body>
 </html>
+=======
+// Halaman awal langsung ke login
+header('Location: auth.php');
+exit;
+?>
+>>>>>>> bc780c8 (3 & 4 (nick))
