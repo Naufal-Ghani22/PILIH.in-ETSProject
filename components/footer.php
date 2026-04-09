@@ -8,9 +8,7 @@
             <div>
                 <h4 class="font-semibold mb-4">Navigasi</h4>
                 <ul class="space-y-2 text-sm text-slate-400">
-                    <li><a href="index.php" class="hover:text-white transition">Dashboard</a></li>
-                    <li><a href="login.php" class="hover:text-white transition">Login</a></li>
-                    <li><a href="regristasi.php" class="hover:text-white transition">Registrasi</a></li>
+                    <li><a href="dashboard.php" class="hover:text-white transition">Dashboard</a></li>
                     <li><a href="tes.php" class="hover:text-white transition">Ambil Tes</a></li>
                     <li><a href="kampus.php" class="hover:text-white transition">Cari Kampus</a></li>
                 </ul>
