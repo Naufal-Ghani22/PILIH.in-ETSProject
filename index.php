@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 session_start();
 ?>
 <!DOCTYPE html>
@@ -13,7 +12,7 @@ session_start();
 </head>
 <body class="font-sans text-slate-800 bg-slate-50 flex flex-col min-h-screen overflow-x-hidden">
 
-    <?php include 'component/navbar.php'; ?>
+    <?php include 'components/navbar.php'; ?>
 
     <main class="flex-grow">
         <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-gradient-to-br from-purple-600 via-purple-500 to-indigo-600">
@@ -79,13 +78,7 @@ session_start();
         </section>
     </main>
 
-    <?php include 'component/footer.php'; ?>
+    <?php include 'components/footer.php'; ?>
 
 </body>
 </html>
-=======
-// Halaman awal langsung ke login
-header('Location: auth.php');
-exit;
-?>
->>>>>>> bc780c8 (3 & 4 (nick))
