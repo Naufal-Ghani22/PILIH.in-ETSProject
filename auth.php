@@ -67,7 +67,7 @@ if (isset($_SESSION['user_id'])) {
             </div>
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1">Asal Sekolah</label>
-                <input type="asal_sekolah" id="reg-asal_sekolah" name="asal_sekolah" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="SMAN 2 Bojonegoro">
+                <input type="text" id="reg-asal_sekolah" name="asal_sekolah" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="SMAN 2 Bojonegoro">
                 <span id="err-reg-asal_sekolah" class="text-red-500 text-xs hidden">Masukkan asal sekolahmu</span>
             </div>
             <button type="submit" class="w-full bg-secondary text-white font-bold py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-secondary/30">Buat Akun</button>
@@ -93,22 +93,27 @@ if (isset($_SESSION['user_id'])) {
         }
 
         function validasiRegister() {
-            let valid = true;
-            let nama = document.getElementById('reg-nama').value;
-            let email = document.getElementById('reg-email').value;
-            let pass = document.getElementById('reg-password').value;
-            
-            if(nama === "") { document.getElementById('err-reg-nama').classList.remove('hidden'); valid = false; }
-            else { document.getElementById('err-reg-nama').classList.add('hidden'); }
-            
-            if(email === "") { document.getElementById('err-reg-email').classList.remove('hidden'); valid = false; }
-            else { document.getElementById('err-reg-email').classList.add('hidden'); }
-            
-            if(pass === "" || pass.length < 6) { document.getElementById('err-reg-pass').classList.remove('hidden'); valid = false; }
-            else { document.getElementById('err-reg-pass').classList.add('hidden'); }
-            
-            return valid;
-        }
+                let valid = true;
+                let nama = document.getElementById('reg-nama').value;
+                let email = document.getElementById('reg-email').value;
+                let pass = document.getElementById('reg-password').value;
+                let sekolah = document.getElementById('reg-asal_sekolah').value; // Tambahkan ini
+
+                if(nama === "") { document.getElementById('err-reg-nama').classList.remove('hidden'); valid = false; }
+                else { document.getElementById('err-reg-nama').classList.add('hidden'); }
+                
+                if(email === "") { document.getElementById('err-reg-email').classList.remove('hidden'); valid = false; }
+                else { document.getElementById('err-reg-email').classList.add('hidden'); }
+                
+                if(pass === "" || pass.length < 6) { document.getElementById('err-reg-pass').classList.remove('hidden'); valid = false; }
+                else { document.getElementById('err-reg-pass').classList.add('hidden'); }
+
+                // Tambahkan validasi sekolah di sini
+                if(sekolah === "") { document.getElementById('err-reg-asal_sekolah').classList.remove('hidden'); valid = false; }
+                else { document.getElementById('err-reg-asal_sekolah').classList.add('hidden'); }
+                
+                return valid;
+            }
     </script>
 </body>
 </html>
