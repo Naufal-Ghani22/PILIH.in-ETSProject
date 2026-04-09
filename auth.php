@@ -44,8 +44,8 @@ if (isset($_SESSION['user_id'])) {
                 <input type="password" id="login-password" name="password" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="••••••••">
                 <span id="err-login-pass" class="text-red-500 text-xs hidden">Password tidak boleh kosong!</span>
             </div>
-            <button type="submit" class="w-full bg-primary text-white font-bold py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-primary/30">Masuk Sekarang</button>
-            <p class="text-center text-sm text-slate-500 mt-4">Belum punya akun? <button type="button" onclick="toggleForm('register')" class="text-primary font-bold hover:underline">Daftar di sini</button></p>
+            <button type="submit" class="w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-purple-600/30">Masuk Sekarang</button>
+            <p class="text-center text-sm text-slate-500 mt-4">Belum punya akun? <button type="button" onclick="toggleForm('register')" class="text-purple-600 font-bold hover:underline">Daftar di sini</button></p>
         </form>
 
         <form id="form-register" action="proses_auth.php" method="POST" class="space-y-4 hidden" onsubmit="return validasiRegister()">
@@ -70,8 +70,8 @@ if (isset($_SESSION['user_id'])) {
                 <input type="text" id="reg-asal_sekolah" name="asal_sekolah" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition" placeholder="SMAN 2 Bojonegoro">
                 <span id="err-reg-asal_sekolah" class="text-red-500 text-xs hidden">Masukkan asal sekolahmu</span>
             </div>
-            <button type="submit" class="w-full bg-secondary text-white font-bold py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-secondary/30">Buat Akun</button>
-            <p class="text-center text-sm text-slate-500 mt-4">Sudah punya akun? <button type="button" onclick="toggleForm('login')" class="text-primary font-bold hover:underline">Masuk</button></p>
+            <button type="submit" class="w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-purple-600/30">Buat Akun</button>
+            <p class="text-center text-sm text-slate-500 mt-4">Sudah punya akun? <button type="button" onclick="toggleForm('login')" class="text-purple-600 font-bold hover:underline">Masuk</button></p>
         </form>
     </div>
 
