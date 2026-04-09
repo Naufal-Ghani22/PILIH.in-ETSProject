@@ -1067,14 +1067,6 @@
     --tw-outline-style: none;
     outline-style: none;
   }
-  .group-hover\:translate-x-1 {
-    &:is(:where(.group):hover *) {
-      @media (hover: hover) {
-        --tw-translate-x: calc(var(--spacing) * 1);
-        translate: var(--tw-translate-x) var(--tw-translate-y);
-      }
-    }
-  }
   .hover\:-translate-y-0\.5 {
     &:hover {
       @media (hover: hover) {
