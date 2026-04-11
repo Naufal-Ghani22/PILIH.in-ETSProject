@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once 'database/koneksi.php'; //untuk koneksi ke db
+require_once 'database/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: auth.php');
@@ -10,7 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $action = $_POST['action'] ?? '';
 
-// LOGIN
+// ==========================================
+// 1. PROSES LOGIN
+// ==========================================
 if ($action === 'login') {
     $email = mysqli_real_escape_string($koneksi, trim($_POST['email'] ?? ''));
     $password = $_POST['password'] ?? '';
@@ -25,20 +27,26 @@ if ($action === 'login') {
     $result = mysqli_query($koneksi, $query);
 
     if ($result && mysqli_num_rows($result) === 1) {
-        $user = mysqli_fetch_assoc($result);
+        $user = mysqli_fetch_assoc($result); // Data disimpan di $user
         
     // Verifikasi password yang di-hash
         if (password_verify($password, $user['password'])) {
-
-            $_SESSION['user_id']      = $user['id_user'];
+            // PERBAIKAN: Menggunakan $user, bukan $data_user
+            $_SESSION['user_id'] = $user['id_user'];
             $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
-            $_SESSION['email']        = $user['email'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = $user['role'];
 
-            $redirect = $_POST['redirect'] ?? 'dashboard.php';
-            $allowed_redirects = ['dashboard.php', 'tes.php', 'kampus.php', 'katalog_jurusan.php'];
-            if (!in_array($redirect, $allowed_redirects)) $redirect = 'dashboard.php';
-
-            header("Location: $redirect");
+            // AUTO-REDIRECT CERDAS
+            if ($_SESSION['role'] === 'admin') {
+                header("Location: admin/dashboard.php");
+                exit;
+            } else {
+                header("Location: dashboard.php");
+                exit;
+            }
+        } else {
+            header('Location: auth.php?error=Email atau Password salah');
             exit;
         }
     }
@@ -47,22 +55,24 @@ if ($action === 'login') {
     exit;
 }
 
-// Registrasi
+// ==========================================
+// 2. PROSES REGISTRASI
+// ==========================================
 if ($action === 'register') {
     $nama      = mysqli_real_escape_string($koneksi, trim($_POST['nama_lengkap'] ?? ''));
     $email     = mysqli_real_escape_string($koneksi, trim($_POST['email'] ?? ''));
+    $password  = $_POST['password'] ?? '';
     $sekolah   = mysqli_real_escape_string($koneksi, trim($_POST['asal_sekolah'] ?? ''));
     $password  = $_POST['password'] ?? '';
 
-    // Validasi input kosong
-    if ($nama === '' || $email === '' || $password === '' || $sekolah === '') {
+    // PERBAIKAN: Hapus pengecekan $sekolah === '' karena di form tidak ada
+    if ($nama === '' || $email === '' || $password === '') {
         header('Location: auth.php?error=Semua data pendaftaran wajib diisi');
         exit;
     }
 
-    // Validasi password
-    if (strlen($password) < 8) {
-        header('Location: auth.php?error=Password minimal 8 karakter');
+    if (strlen($password) < 6) { // Ubah jadi 6 agar sinkron dengan info placeholder di auth.php
+        header('Location: auth.php?error=Password minimal 6 karakter');
         exit;
     }
 
@@ -73,14 +83,14 @@ if ($action === 'register') {
     $cek_result = $cek->get_result();
 
     if ($cek_result->num_rows > 0) {
-        header('Location: auth.php?error=Email sudah terdaftar');
+        header('Location: auth.php?error=Email sudah terdaftar, silakan login!');
         exit;
     }
 
-    // Keamanan: Hash password
+    // Hash password
     $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
-    // Query Insert regist
+    // Query Insert regist (role default biasanya diset otomatis 'user' dari database)
     $query_ins = "INSERT INTO users (nama_lengkap, email, password, asal_sekolah) 
                   VALUES ('$nama', '$email', '$password_hashed', '$sekolah')";
     
@@ -89,18 +99,12 @@ if ($action === 'register') {
         $_SESSION['user_id']      = mysqli_insert_id($koneksi);
         $_SESSION['nama_lengkap'] = $nama;
         $_SESSION['email']        = $email;
-        $_SESSION['asal_sekolah'] = $sekolah;
-        $_SESSION['role']         = 'user'; //mengisi sesuai default yg ada di db
+        $_SESSION['role']         = 'user';
 
-        $redirect = $_POST['redirect'] ?? 'dashboard.php';
-        $allowed_redirects = ['dashboard.php', 'tes.php', 'kampus.php', 'katalog_jurusan.php'];
-        if (!in_array($redirect, $allowed_redirects)) $redirect = 'dashboard.php';
-
-        header("Location: $redirect");
+        header("Location: dashboard.php");
         exit;
     } else {
-        // Jika email sudah ada (unique constraint) atau error lainnya
-        header('Location: auth.php?error=Pendaftaran gagal atau email sudah terdaftar');
+        header('Location: auth.php?error=Sistem sedang sibuk, pendaftaran gagal.');
         exit;
     }
 }
