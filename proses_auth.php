@@ -4,7 +4,7 @@ session_start();
 require_once 'database/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: auth.php');
+    header('Location: auth.php');   
     exit;
 }
 
@@ -22,14 +22,12 @@ if ($action === 'login') {
         exit;
     }
 
-    // Mencari user berdasarkan email
     $query = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
     $result = mysqli_query($koneksi, $query);
 
     if ($result && mysqli_num_rows($result) === 1) {
         $user = mysqli_fetch_assoc($result); // Data disimpan di $user
         
-    // Verifikasi password yang di-hash
         if (password_verify($password, $user['password'])) {
             // PERBAIKAN: Menggunakan $user, bukan $data_user
             $_SESSION['user_id'] = $user['id_user'];
@@ -62,8 +60,7 @@ if ($action === 'register') {
     $nama      = mysqli_real_escape_string($koneksi, trim($_POST['nama_lengkap'] ?? ''));
     $email     = mysqli_real_escape_string($koneksi, trim($_POST['email'] ?? ''));
     $password  = $_POST['password'] ?? '';
-    $sekolah   = mysqli_real_escape_string($koneksi, trim($_POST['asal_sekolah'] ?? ''));
-    $password  = $_POST['password'] ?? '';
+    $sekolah   = mysqli_real_escape_string($koneksi, trim($_POST['asal_sekolah'] ?? '')); // Dibiarkan kosong tidak apa-apa
 
     // PERBAIKAN: Hapus pengecekan $sekolah === '' karena di form tidak ada
     if ($nama === '' || $email === '' || $password === '') {
