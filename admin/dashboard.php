@@ -10,8 +10,8 @@ if ($_SESSION['role'] !== 'admin') {
 
 // Ambil statistik data
 $count_users = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_user FROM users WHERE role = 'user'"));
-$count_majors = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_jurusan FROM majors"));
-$count_campuses = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_kampus FROM campuses"));
+$count_majors = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_jurusan FROM jurusan"));
+$count_campuses = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_kampus FROM kampus"));
 ?>
 
 <!DOCTYPE html>
@@ -26,11 +26,11 @@ $count_campuses = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_kampus FROM 
         <aside class="w-64 bg-slate-900 text-white p-6">
             <h2 class="text-2xl font-bold mb-8">PILIH.in <span class="text-purple-400 text-sm">Admin</span></h2>
             <nav class="space-y-4">
-                <a href="dashboard.php" class="block py-2 text-purple-400 font-bold">📊 Dashboard</a>
-                <a href="manage_majors.php" class="block py-2 hover:text-purple-400 transition">🎓 Kelola Jurusan</a>
-                <a href="manage_campuses.php" class="block py-2 hover:text-purple-400 transition">🏫 Kelola Kampus</a>
+                <a href="dashboard.php" class="block py-2 text-purple-400 font-bold">Dashboard</a>
+                <a href="manage_majors.php" class="block py-2 hover:text-purple-400 transition">Kelola Jurusan</a>
+                <a href="manage_campuses.php" class="block py-2 hover:text-purple-400 transition">Kelola Kampus</a>
                 <hr class="border-slate-700">
-                <a href="../logout.php" class="block py-2 text-red-400">🚪 Logout</a>
+                <a href="../logout.php" class="block py-2 text-red-400">Logout</a>
             </nav>
         </aside>
 

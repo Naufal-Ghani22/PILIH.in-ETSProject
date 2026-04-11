@@ -6,7 +6,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit; 
 }
 
-$campuses = mysqli_query($koneksi, "SELECT * FROM campuses ORDER BY id_kampus DESC");
+$campuses = mysqli_query($koneksi, "SELECT * FROM kampus ORDER BY id_kampus DESC");
 ?>
 
 <!DOCTYPE html>
@@ -21,11 +21,11 @@ $campuses = mysqli_query($koneksi, "SELECT * FROM campuses ORDER BY id_kampus DE
     <aside class="w-64 bg-slate-900 text-white p-6">
         <h2 class="text-2xl font-bold mb-8">PILIH.in <span class="text-purple-400 text-sm">Admin</span></h2>
         <nav class="space-y-4">
-            <a href="dashboard.php" class="block py-2 hover:text-purple-400 transition">📊 Dashboard</a>
-            <a href="manage_majors.php" class="block py-2 hover:text-purple-400 transition">🎓 Kelola Jurusan</a>
-            <a href="manage_campuses.php" class="block py-2 text-purple-400 font-bold">🏫 Kelola Kampus</a>
+            <a href="dashboard.php" class="block py-2 hover:text-purple-400 transition">Dashboard</a>
+            <a href="manage_majors.php" class="block py-2 hover:text-purple-400 transition">Kelola Jurusan</a>
+            <a href="manage_campuses.php" class="block py-2 text-purple-400 font-bold">Kelola Kampus</a>
             <hr class="border-slate-700">
-            <a href="../logout.php" class="block py-2 text-red-400">🚪 Logout</a>
+            <a href="../logout.php" class="block py-2 text-red-400">Logout</a>
         </nav>
     </aside>
 
