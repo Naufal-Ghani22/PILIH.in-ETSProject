@@ -14,7 +14,7 @@ $user_id = $_SESSION['user_id'];
 require_once 'database/koneksi.php';
 $query_riwayat = "SELECT h.*, j.nama_jurusan, j.kategori_relevan, j.id_jurusan 
                   FROM hasil_tes h 
-                  JOIN jurusan j ON h.id_jurusan_rekomendasi = j.id_jurusan 
+                  JOIN jurusan j ON h.id_jurusan = j.id_jurusan 
                   WHERE h.id_user = $user_id 
                   ORDER BY h.tanggal_tes DESC";
 $riwayat_result = mysqli_query($koneksi, $query_riwayat);

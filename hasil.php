@@ -9,7 +9,7 @@ if ($id_hasil !== 0) {
     $query = "SELECT h.id_hasil, h.skor_kecocokan, h.tanggal_tes, 
                      j.id_jurusan, j.nama_jurusan, j.deskripsi_singkat, j.prospek_karir 
               FROM hasil_tes h 
-              JOIN jurusan j ON h.id_jurusan_rekomendasi = j.id_jurusan 
+              JOIN jurusan j ON h.id_jurusan = j.id_jurusan 
               WHERE h.id_hasil = $id_hasil";
 
     $result = mysqli_query($koneksi, $query);
