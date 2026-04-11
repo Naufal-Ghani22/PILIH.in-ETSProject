@@ -8,7 +8,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         "nama" => $row['nama_kampus'],
         "lokasi" => $row['lokasi'],
         "akreditasi" => $row['akreditasi'],
-        "biaya" => $row['estimasi_biaya']
+        "biaya" => $row['estimasi_biaya'],
+        "logo" => $row['logo_kampus']
     ];
 }
 ?>
@@ -44,7 +45,12 @@ while ($row = mysqli_fetch_assoc($result)) {
             <?php foreach($campuses as $k): ?>
             <div class="kampus-card bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition hover:-translate-y-1" data-akreditasi="<?= $k['akreditasi'] ?>">
                 <div class="flex items-center gap-4 mb-4">
-                    <div class="w-14 h-14 bg-secondary/20 rounded-full flex items-center justify-center text-2xl">🏫</div>
+                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center overflow-hidden border border-slate-100">
+                        <?php if (!empty($k['logo'])): ?>
+                            <img src="img/<?= $k['logo'] ?>" alt="Logo <?= $k['nama'] ?>" class="w-full h-full object-contain">
+                        <?php else: ?>
+                            <div class="text-2xl">🏫</div> <?php endif; ?>
+                    </div>
                     <div>
                         <h3 class="font-bold text-lg text-slate-800 kampus-nama"><?= $k['nama'] ?></h3>
                         <p class="text-sm text-slate-500 kampus-lokasi">📍 <?= $k['lokasi'] ?></p>
