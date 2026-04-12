@@ -9,7 +9,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         "lokasi" => $row['lokasi'],
         "akreditasi" => $row['akreditasi'],
         "biaya" => $row['estimasi_biaya'],
-        "logo" => $row['logo_kampus']
+        "logo" => $row['logo_url']
     ];
 }
 ?>
