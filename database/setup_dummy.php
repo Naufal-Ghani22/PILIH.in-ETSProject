@@ -27,7 +27,11 @@ $query_kampus = "INSERT INTO kampus (nama_kampus, lokasi, akreditasi, estimasi_b
 "; 
 // wait, we need to alter table 'kampus' to add 'lokasi' if it doesn't exist.
 // Let's modify table first just in case.
-mysqli_query($koneksi, "ALTER TABLE kampus ADD COLUMN lokasi VARCHAR(100) AFTER nama_kampus;");
+try {
+    mysqli_query($koneksi, "ALTER TABLE kampus ADD COLUMN lokasi VARCHAR(100) AFTER nama_kampus;");
+} catch(mysqli_sql_exception $e) {
+    // Ignore duplicate column error
+}
 // Run script anyway to ignore duplicate column error if exists, then execute insert
 mysqli_query($koneksi, $query_kampus);
 
