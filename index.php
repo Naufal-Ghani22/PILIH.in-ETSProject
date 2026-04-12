@@ -23,6 +23,7 @@ while ($r = mysqli_fetch_assoc($q_kampus)) $top_kampus[] = $r;
     <title>PILIH.in - Navigasi Masa Depanmu</title>
     <meta name="description" content="PILIH.in membantu kamu menemukan jurusan dan kampus terbaik berdasarkan minat bakat. Dapatkan roadmap karir semester 1-8 secara instan.">
     <link href="./src/output.css" rel="stylesheet">
+    <link href="./src/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         /* ── Slider kampus ── */
