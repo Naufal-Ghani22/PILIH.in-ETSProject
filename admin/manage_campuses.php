@@ -20,12 +20,13 @@ $campuses = mysqli_query($koneksi, "SELECT * FROM kampus ORDER BY id_kampus DESC
     
     <aside class="w-64 bg-slate-900 text-white p-6">
         <h2 class="text-2xl font-bold mb-8">PILIH.in <span class="text-purple-400 text-sm">Admin</span></h2>
-        <nav class="space-y-4">
-            <a href="dashboard.php" class="block py-2 hover:text-purple-400 transition">Dashboard</a>
-            <a href="manage_majors.php" class="block py-2 hover:text-purple-400 transition">Kelola Jurusan</a>
-            <a href="manage_campuses.php" class="block py-2 text-purple-400 font-bold">Kelola Kampus</a>
-            <hr class="border-slate-700">
-            <a href="../logout.php" class="block py-2 text-red-400">Logout</a>
+        <nav class="space-y-2">
+            <a href="dashboard.php"           class="block px-3 py-2 rounded-lg hover:bg-slate-700 hover:text-purple-400 transition">Dashboard</a>
+            <a href="manage_majors.php"       class="block px-3 py-2 rounded-lg hover:bg-slate-700 hover:text-purple-400 transition">Kelola Jurusan</a>
+            <a href="manage_campuses.php"     class="block px-3 py-2 rounded-lg bg-slate-700 text-purple-400 font-bold">Kelola Kampus</a>
+            <a href="manage_prodi_kampus.php" class="block px-3 py-2 rounded-lg hover:bg-slate-700 hover:text-purple-400 transition">📌 Prodi per Kampus</a>
+            <hr class="border-slate-700 my-2">
+            <a href="../logout.php" class="block px-3 py-2 rounded-lg text-red-400 hover:bg-slate-700 transition">Logout</a>
         </nav>
     </aside>
 
@@ -65,10 +66,11 @@ $campuses = mysqli_query($koneksi, "SELECT * FROM kampus ORDER BY id_kampus DESC
                             </span>
                         </td>
                         <td class="p-4 text-center space-x-3">
-                            <button class="text-indigo-600 font-bold text-sm">Edit</button>
+                            <a href="manage_prodi_kampus.php?id_kampus=<?= $row['id_kampus'] ?>" 
+                               class="text-indigo-600 font-bold text-sm hover:underline">📌 Atur Prodi</a>
                             <a href="process_crud.php?action=delete_campus&id=<?= $row['id_kampus'] ?>" 
                                onclick="return confirm('Hapus kampus ini dari sistem?')"
-                               class="text-red-500 font-bold text-sm">Hapus</a>
+                               class="text-red-500 font-bold text-sm hover:underline">Hapus</a>
                         </td>
                     </tr>
                     <?php endwhile; ?>
