@@ -44,7 +44,7 @@ $user_id = $_SESSION['user_id'];
 $total_soal = count($jawaban);
 $skor_akhir = ($total_soal > 0) ? round((array_sum($jawaban) / ($total_soal * 5)) * 100) : 0;
 
-$query_insert = "INSERT INTO hasil_tes (id_user, id_jurusan, skor_kecocokan) 
+$query_insert = "INSERT INTO hasil_tes (id_user, id_jurusan_rekomendasi, skor_kecocokan) 
                  VALUES ('$user_id', '$id_jurusan_final', '$skor_akhir')";
 
 if (mysqli_query($koneksi, $query_insert)) {
