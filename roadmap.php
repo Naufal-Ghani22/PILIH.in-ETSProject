@@ -1,6 +1,6 @@
 <?php
 // roadmap.php - Menampilkan timeline pembelajaran per semester
-
+session_start();
 require_once 'database/koneksi.php';
 $id_jurusan = isset($_GET['id_jurusan']) ? (int)$_GET['id_jurusan'] : 0; 
 
@@ -28,9 +28,6 @@ if ($id_jurusan !== 0) {
         }
     }
 }
-?>
-<?php
-session_start();
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -149,9 +146,9 @@ session_start();
         <div class="bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-2xl p-8 text-center">
             <h3 class="text-2xl font-bold text-slate-800 mb-2">Siap Memulai Perjalanan? 🚀</h3>
             <p class="text-slate-600 mb-6">Daftar ke kampus pilihan dan mulai belajar dengan roadmap yang telah kami siapkan.</p>
-            <button onclick="alert('Fitur pencarian kampus akan segera hadir!')" class="inline-block bg-primary text-white font-bold py-3 px-8 rounded-xl hover:opacity-90 transition shadow-lg shadow-primary/30 cursor-pointer">
-                Cari Kampus Terbaik
-            </button>
+            <a href="kampus.php" class="inline-block bg-primary text-white font-bold py-3 px-8 rounded-xl hover:opacity-90 transition shadow-lg shadow-primary/30">
+                🏫 Cari Kampus Terbaik
+            </a>
         </div>
         
         <?php endif; ?>

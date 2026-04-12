@@ -1,20 +1,21 @@
 <?php
 session_start();
-// Cegat jika belum login
 if (!isset($_SESSION['user_id'])) {
     header("Location: auth.php?error=Silakan login terlebih dahulu!");
     exit;
 }
 
-// Simulasi Data User (Nanti diganti query ke tabel users)
 $nama_user = $_SESSION['nama_lengkap'] ?? "Calon Mahasiswa Hebat";
 $email_user = $_SESSION['email'] ?? "user@pilihin.com";
 $user_id = $_SESSION['user_id'];
 
 require_once 'database/koneksi.php';
-$query_riwayat = "SELECT h.*, j.nama_jurusan, j.kategori_relevan, j.id_jurusan 
+
+// JOIN menggunakan kolom id_jurusan (skema baru)
+$query_riwayat = "SELECT h.id_hasil, h.skor_kecocokan, h.tanggal_tes, 
+                         j.nama_jurusan, j.kategori_relevan, j.id_jurusan 
                   FROM hasil_tes h 
-                  JOIN jurusan j ON h.id_jurusan_rekomendasi = j.id_jurusan 
+                  JOIN jurusan j ON h.id_jurusan = j.id_jurusan 
                   WHERE h.id_user = $user_id 
                   ORDER BY h.tanggal_tes DESC";
 $riwayat_result = mysqli_query($koneksi, $query_riwayat);
@@ -36,12 +37,13 @@ $riwayat_result = mysqli_query($koneksi, $query_riwayat);
         <aside class="w-full lg:w-1/3">
             <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 text-center sticky top-32">
                 <div class="w-24 h-24 bg-primary text-white text-3xl flex items-center justify-center rounded-full mx-auto mb-4 font-bold shadow-lg shadow-primary/30">
-                    <?= substr($nama_user, 0, 1) ?>
+                    <?= strtoupper(substr($nama_user, 0, 1)) ?>
                 </div>
                 <h2 class="text-2xl font-bold text-slate-800"><?= htmlspecialchars($nama_user) ?></h2>
                 <p class="text-slate-500 mb-6"><?= htmlspecialchars($email_user) ?></p>
                 <div class="border-t border-slate-100 pt-6 space-y-3">
                     <a href="tes.php" class="block w-full py-3 bg-secondary/10 text-secondary font-semibold rounded-xl hover:bg-secondary hover:text-white transition">Ambil Tes Baru</a>
+                    <a href="kampus.php" class="block w-full py-3 bg-primary/10 text-primary font-semibold rounded-xl hover:bg-primary hover:text-white transition">Eksplorasi Kampus</a>
                     <a href="logout.php" onclick="return confirm('Yakin ingin keluar?')" class="block w-full py-3 bg-red-50 text-red-600 font-semibold rounded-xl hover:bg-red-500 hover:text-white transition">Logout</a>
                 </div>
             </div>
@@ -50,7 +52,7 @@ $riwayat_result = mysqli_query($koneksi, $query_riwayat);
         <section class="w-full lg:w-2/3 space-y-6">
             <h3 class="text-2xl font-bold text-slate-800 mb-6">Riwayat Rekomendasimu</h3>
             
-            <?php if (mysqli_num_rows($riwayat_result) > 0): ?>
+            <?php if ($riwayat_result && mysqli_num_rows($riwayat_result) > 0): ?>
                 <?php while($row = mysqli_fetch_assoc($riwayat_result)): ?>
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
                     <div class="flex items-center gap-4">
@@ -75,7 +77,7 @@ $riwayat_result = mysqli_query($koneksi, $query_riwayat);
                 </div>
             <?php endif; ?>
 
-            </section>
+        </section>
 
     </main>
 

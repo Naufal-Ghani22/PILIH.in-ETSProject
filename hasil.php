@@ -6,10 +6,11 @@ $id_hasil = isset($_GET['id_hasil']) ? (int)$_GET['id_hasil'] : 0;
 
 $hasil = null;
 if ($id_hasil !== 0) {
+    // JOIN menggunakan kolom id_jurusan (skema baru)
     $query = "SELECT h.id_hasil, h.skor_kecocokan, h.tanggal_tes, 
                      j.id_jurusan, j.nama_jurusan, j.deskripsi_singkat, j.prospek_karir 
               FROM hasil_tes h 
-              JOIN jurusan j ON h.id_jurusan_rekomendasi = j.id_jurusan 
+              JOIN jurusan j ON h.id_jurusan = j.id_jurusan 
               WHERE h.id_hasil = $id_hasil";
 
     $result = mysqli_query($koneksi, $query);
@@ -67,9 +68,7 @@ if ($id_hasil !== 0) {
                     <div class="flex items-end gap-6">
                         <div class="relative w-32 h-32">
                             <svg class="transform -rotate-90 w-32 h-32" viewBox="0 0 120 120">
-                                <!-- Background circle -->
                                 <circle cx="60" cy="60" r="54" fill="none" stroke="#e2e8f0" stroke-width="8"/>
-                                <!-- Progress circle -->
                                 <circle cx="60" cy="60" r="54" fill="none" stroke="#3b82f6" stroke-width="8"
                                     stroke-dasharray="<?= (340 * $hasil['skor_kecocokan'] / 100) ?> 340"
                                     stroke-linecap="round" stroke-dashoffset="0"/>
@@ -96,29 +95,26 @@ if ($id_hasil !== 0) {
         </div>
 
         <!-- Info Box: Prospek Karir -->
-        <div class="bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 rounded-3xl p-8 mb-12">
+        <div class="bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 rounded-3xl p-8 mb-8">
             <h3 class="text-xl font-bold text-slate-800 mb-4">💼 Prospek Karir</h3>
             <p class="text-slate-700 leading-relaxed"><?= htmlspecialchars($hasil['prospek_karir'] ?? 'Prospek karir gemilang menanti di bidang ini!') ?></p>
         </div>
 
         <!-- Action Section -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            
             <a href="roadmap.php?id_jurusan=<?= urlencode($hasil['id_jurusan']) ?>" 
                class="bg-primary text-white font-semibold py-4 px-6 rounded-2xl hover:opacity-90 transition text-center shadow-lg shadow-primary/30 flex items-center justify-center gap-3">
                 <span>📚 Lihat Roadmap Pembelajaran</span>
             </a>
-
-            <button onclick="history.back()" 
-               class="bg-slate-100 text-slate-800 font-semibold py-4 px-6 rounded-2xl hover:bg-slate-200 transition text-center flex items-center justify-center gap-3 cursor-pointer">
-                <span>← Kembali</span>
-            </button>
-
+            <a href="kampus.php"
+               class="bg-slate-100 text-slate-800 font-semibold py-4 px-6 rounded-2xl hover:bg-slate-200 transition text-center flex items-center justify-center gap-3">
+                <span>🏫 Eksplorasi Kampus</span>
+            </a>
         </div>
 
-        <!-- Additional Benefits -->
+        <!-- Additional Info -->
         <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
-            <h3 class="text-xl font-bold text-slate-800 mb-6">Keuntungan Memilih Paket Tes</h3>
+            <h3 class="text-xl font-bold text-slate-800 mb-6">Langkah Selanjutnya</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="flex gap-4">
                     <div class="text-2xl">📖</div>
@@ -138,7 +134,7 @@ if ($id_hasil !== 0) {
                     <div class="text-2xl">🏆</div>
                     <div>
                         <p class="font-semibold text-slate-800">Saran Kampus Terbaik</p>
-                        <p class="text-sm text-slate-500">Update rekomendasi kampus</p>
+                        <p class="text-sm text-slate-500">Rekomendasi kampus terkurasi</p>
                     </div>
                 </div>
             </div>
@@ -152,7 +148,6 @@ if ($id_hasil !== 0) {
 
     <!-- Chart.js Configuration -->
     <script>
-        // Radar Chart Data
         const ctx = document.getElementById('radarChart').getContext('2d');
         const radarChart = new Chart(ctx, {
             type: 'radar',
@@ -167,11 +162,11 @@ if ($id_hasil !== 0) {
                 datasets: [{
                     label: 'Skor Kompetensi',
                     data: [
-                        <?= (int)$hasil['skor_kecocokan'] ?>,
-                        <?= (int)($hasil['skor_kecocokan'] * 0.85) ?>,
-                        <?= (int)($hasil['skor_kecocokan'] * 0.75) ?>,
-                        <?= (int)($hasil['skor_kecocokan'] * 0.80) ?>,
-                        <?= (int)($hasil['skor_kecocokan'] * 0.90) ?>
+                        <?= (int)$hasil['skor_kecocokan'] ?? 0 ?>,
+                        <?= (int)(($hasil['skor_kecocokan'] ?? 0) * 0.85) ?>,
+                        <?= (int)(($hasil['skor_kecocokan'] ?? 0) * 0.75) ?>,
+                        <?= (int)(($hasil['skor_kecocokan'] ?? 0) * 0.80) ?>,
+                        <?= (int)(($hasil['skor_kecocokan'] ?? 0) * 0.90) ?>
                     ],
                     borderColor: '#3b82f6',
                     backgroundColor: 'rgba(59, 130, 246, 0.1)',
@@ -191,19 +186,13 @@ if ($id_hasil !== 0) {
                     r: {
                         beginAtZero: true,
                         max: 100,
-                        ticks: {
-                            stepSize: 20
-                        }
+                        ticks: { stepSize: 20 }
                     }
                 },
                 plugins: {
                     legend: {
                         display: true,
-                        labels: {
-                            font: {
-                                size: 12
-                            }
-                        }
+                        labels: { font: { size: 12 } }
                     }
                 }
             }
