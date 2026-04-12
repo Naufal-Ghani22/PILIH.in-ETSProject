@@ -17,12 +17,13 @@ $majors = mysqli_query($koneksi, "SELECT * FROM jurusan ORDER BY id_jurusan DESC
     
     <aside class="w-64 bg-slate-900 text-white p-6 z-10">
         <h2 class="text-2xl font-bold mb-8">PILIH.in <span class="text-purple-400 text-sm">Admin</span></h2>
-        <nav class="space-y-4">
-            <a href="dashboard.php" class="block py-2 hover:text-purple-400 transition">Dashboard</a>
-            <a href="manage_majors.php" class="block py-2 text-purple-400 font-bold">Kelola Jurusan</a>
-            <a href="manage_campuses.php" class="block py-2 hover:text-purple-400 transition">Kelola Kampus</a>
-            <hr class="border-slate-700">
-            <a href="../logout.php" class="block py-2 text-red-400">Logout</a>
+        <nav class="space-y-2">
+            <a href="dashboard.php"           class="block px-3 py-2 rounded-lg hover:bg-slate-700 hover:text-purple-400 transition">Dashboard</a>
+            <a href="manage_majors.php"       class="block px-3 py-2 rounded-lg bg-slate-700 text-purple-400 font-bold">Kelola Jurusan</a>
+            <a href="manage_campuses.php"     class="block px-3 py-2 rounded-lg hover:bg-slate-700 hover:text-purple-400 transition">Kelola Kampus</a>
+            <a href="manage_prodi_kampus.php" class="block px-3 py-2 rounded-lg hover:bg-slate-700 hover:text-purple-400 transition">📌 Prodi per Kampus</a>
+            <hr class="border-slate-700 my-2">
+            <a href="../logout.php"           class="block px-3 py-2 rounded-lg text-red-400 hover:bg-slate-700 transition">Logout</a>
         </nav>
     </aside>
 
