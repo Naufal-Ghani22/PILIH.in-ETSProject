@@ -39,6 +39,7 @@ $json_questions = json_encode($questions);
             </div>
 
             <form id="quizForm" action="proses_tes.php" method="POST">
+                <div id="hiddenAnswersContainer"></div>
                 <div id="questionContainer" class="min-h-[250px]">
                     </div>
 
@@ -79,7 +80,7 @@ $json_questions = json_encode($questions);
                         <div class="grid grid-cols-1 gap-3">
                             ${[1,2,3,4,5].map(score => `
                                 <label class="flex items-center cursor-pointer rounded-2xl border-2 p-4 transition ${answers[q.id_soal] == score ? 'border-primary bg-primary/5' : 'border-slate-100 hover:border-slate-200'}">
-                                    <input type="radio" name="jawaban[${q.id_soal}]" value="${score}" 
+                                    <input type="radio" name="temp_jawaban[${q.id_soal}]" value="${score}" 
                                         class="w-5 h-5 text-primary focus:ring-primary" 
                                         ${answers[q.id_soal] == score ? 'checked' : ''} 
                                         onchange="saveAnswer(${q.id_soal}, ${score})">
@@ -108,7 +109,22 @@ $json_questions = json_encode($questions);
 
         function saveAnswer(id, score) {
             answers[id] = score;
+
+            const hiddenContainer = document.getElementById('hiddenAnswersContainer');
+            // Cek apakah input untuk id_soal ini sudah ada
+            let existingInput = document.querySelector(`input[name="jawaban[${id}]"]`);
             
+            if (existingInput) {
+                existingInput.value = score; // Update jika sudah ada
+            } else {
+                // Buat input baru jika belum ada
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = `jawaban[${id}]`;
+                input.value = score;
+                hiddenContainer.appendChild(input);
+            }
+
             renderQuestion();
 
             if (currentStep < totalSteps - 1) {
