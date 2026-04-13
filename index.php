@@ -239,67 +239,65 @@ while ($r = mysqli_fetch_assoc($q_kampus))
             <div class="container mx-auto px-4 lg:px-12 relative z-10">
                 <div class="text-center mb-16 reveal">
                     <span
-                        class="inline-block text-xs font-bold uppercase tracking-widest text-purple-600 bg-purple-50 px-4 py-2 rounded-full mb-4">Cara
+                        class="inline-block text-2xl font-bold uppercase tracking-widest text-purple-600 bg-purple-50 px-4 py-2 rounded-full mb-4">Cara
                         Kerja</span>
-                    <h2 class="text-4xl font-extrabold text-slate-900 mb-4">Mulai dalam <span
+                    <h2 class="text-6xl font-extrabold text-slate-900 mb-4">Mulai dalam <span
                             class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-500">4
                             Langkah Mudah</span></h2>
-                    <p class="text-slate-500 max-w-xl mx-auto">Dari mendaftar hingga mendapatkan roadmap karir lengkap —
+                    <p class="text-slate-500 max-w-3xl mx-auto">Dari mendaftar hingga mendapatkan roadmap karir lengkap
+                        —
                         semuanya cepat dan gratis.</p>
                 </div>
 
-                <!-- Steps dengan connector line -->
+                <!-- 5 langkah sejajar horizontal -->
+                <?php
+                $svg1 = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" /></svg>';
+                $svg2 = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061A1.125 1.125 0 0 1 3 16.811V8.69ZM12.75 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061a1.125 1.125 0 0 1-1.683-.977V8.69Z" /></svg>';
+                $svg3 = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>';
+                $svg4 = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>';
+                $svg5 = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>';
+
+                $steps = [
+                    ['emoji' => $svg1, 'color' => 'from-purple-500 to-purple-600', 'title' => 'Daftar Akun', 'desc' => 'Buat akun gratis dalam 30 detik. Tidak perlu kartu kredit.'],
+                    ['emoji' => $svg2, 'color' => 'from-indigo-500 to-indigo-600', 'title' => 'Jawab Assessment', 'desc' => 'Ikuti 10 pertanyaan minat bakat yang dirancang psikolog profesional.'],
+                    ['emoji' => $svg3, 'color' => 'from-violet-500 to-violet-600', 'title' => 'Lihat Hasil', 'desc' => 'Dapatkan rekomendasi jurusan dengan skor kecocokan dan analisis mendalam.'],
+                    ['emoji' => $svg4, 'color' => 'from-purple-600 to-indigo-600', 'title' => 'Eksplorasi Roadmap', 'desc' => 'Akses roadmap semester 1-8 dan temukan kampus terbaik untukmu.'],
+                    ['emoji' => $svg5, 'color' => 'from-fuchsia-500 to-purple-600', 'title' => 'Pertimbangkan Pilihanmu', 'desc' => 'Pilih jurusan dan kampus yang paling sesuai dengan minat dan bakatmu.'],
+                ];
+                ?>
+
                 <div class="relative">
-                    <!-- Garis horizontal penghubung (desktop) -->
+                    <!-- Garis horizontal di balik semua ikon -->
                     <div
-                        class="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-purple-200 via-indigo-300 to-purple-200 z-0">
+                        class="absolute top-9 left-[5%] right-[5%] h-0.5 bg-gradient-to-r from-purple-300 via-indigo-300 to-fuchsia-300 z-0">
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
-                        <?php
-                        $steps = [
-                            ['no' => '01', 'emoji' => '✍️', 'color' => 'from-purple-500 to-purple-600', 'title' => 'Daftar Akun', 'desc' => 'Buat akun gratis dalam 30 detik. Tidak perlu kartu kredit.'],
-                            ['no' => '02', 'emoji' => '🎯', 'color' => 'from-indigo-500 to-indigo-600', 'title' => 'Jawab Assessment', 'desc' => 'Ikuti 10 pertanyaan minat bakat yang dirancang psikolog profesional.'],
-                            ['no' => '03', 'emoji' => '📊', 'color' => 'from-violet-500 to-violet-600', 'title' => 'Lihat Hasil', 'desc' => 'Dapatkan rekomendasi jurusan dengan skor kecocokan dan analisis mendalam.'],
-                            ['no' => '04', 'emoji' => '🗺️', 'color' => 'from-purple-600 to-indigo-600', 'title' => 'Eksplorasi Roadmap', 'desc' => 'Akses roadmap semester 1-8 dan temukan kampus terbaik untukmu.'],
-                        ];
-                        foreach ($steps as $i => $s): ?>
-                            <div class="reveal flex flex-col items-center text-center group"
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem;"
+                        class="relative z-10 overflow-x-auto pb-4">
+                        <?php foreach ($steps as $i => $s): ?>
+                            <div class="reveal flex flex-col items-center text-center px-2"
                                 style="transition-delay: <?= $i * 100 ?>ms">
-                                <!-- Lingkaran step number -->
-                                <div class="relative mb-6">
+                                <!-- Ikon -->
+                                <div class="relative mb-4 shrink-0">
                                     <div
-                                        class="w-20 h-20 rounded-full bg-gradient-to-br <?= $s['color'] ?> flex items-center justify-center shadow-xl group-hover:scale-110 transition duration-300">
-                                        <span class="text-3xl"><?= $s['emoji'] ?></span>
+                                        class="w-16 h-16 sm:w-[4.5rem] sm:h-[4.5rem] rounded-full bg-gradient-to-br <?= $s['color'] ?> flex items-center justify-center shadow-lg hover:scale-110 transition duration-300 ring-4 ring-white z-10 relative">
+                                        <?= $s['emoji'] ?>
                                     </div>
-                                    <!-- Nomor kecil di pojok -->
-                                    <span
-                                        class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white border-2 border-purple-200 flex items-center justify-center text-xs font-black text-purple-600">
-                                        <?= $s['no'] ?>
-                                    </span>
                                 </div>
-                                <!-- Konten -->
-                                <h3 class="font-bold text-lg text-slate-800 mb-2"><?= $s['title'] ?></h3>
-                                <p class="text-slate-500 text-sm leading-relaxed"><?= $s['desc'] ?></p>
-
-                                <!-- Panah penghubung mobile (antar baris) -->
-                                <?php if ($i < count($steps) - 1): ?>
-                                    <div class="lg:hidden mt-4 text-purple-300 text-2xl">↓</div>
-                                <?php endif; ?>
+                                <!-- Teks -->
+                                <h3 class="font-bold text-slate-800 text-xl sm:text-sm mb-1"><?= $s['title'] ?></h3>
+                                <p class="text-slate-500 text-[10px] sm:text-xs leading-relaxed"><?= $s['desc'] ?></p>
                             </div>
                         <?php endforeach; ?>
                     </div>
                 </div>
 
+
                 <!-- CTA di bawah tutorial -->
                 <div class="text-center mt-16 reveal">
                     <a href="tes.php"
                         class="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-2xl shadow-xl shadow-purple-500/30 hover:-translate-y-1 hover:shadow-2xl transition duration-300">
-                        <span>Coba Sekarang — Gratis</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
+                        <span>Coba Sekarang</span>
                     </a>
                 </div>
             </div>
@@ -309,6 +307,7 @@ while ($r = mysqli_fetch_assoc($q_kampus))
         <!--  TOP 5 KAMPUS — AUTO SLIDER                -->
         <!-- ══════════════════════════════════════════ -->
         <section class="py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+            <!-- Heading tetap dalam container -->
             <div class="container mx-auto px-4 lg:px-12">
                 <div class="text-center mb-14 reveal">
                     <span
@@ -320,91 +319,89 @@ while ($r = mysqli_fetch_assoc($q_kampus))
                     <p class="text-slate-400 max-w-md mx-auto">Universitas-universitas ini memiliki program studi
                         terlengkap dalam platform kami.</p>
                 </div>
+            </div>
 
-                <?php if (!empty($top_kampus)): ?>
-                    <!-- Slider container -->
-                    <div class="relative" id="sliderContainer">
-                        <!-- Fade edges -->
-                        <div
-                            class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10 pointer-events-none">
-                        </div>
-                        <div
-                            class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-900 to-transparent z-10 pointer-events-none">
-                        </div>
+            <?php if (!empty($top_kampus)): ?>
+                <!-- Slider full-width di luar container agar fade edge mentok ke tepi section -->
+                <div class="relative" id="sliderContainer">
+                    <!-- Fade edges mentok ke tepi kiri/kanan section -->
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-900 to-transparent z-10 pointer-events-none">
+                    </div>
+                    <div
+                        class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-900 to-transparent z-10 pointer-events-none">
+                    </div>
 
-                        <div class="overflow-hidden">
-                            <div id="campusTrack" class="campus-track">
-                                <?php foreach ($top_kampus as $idx => $k): ?>
-                                    <div class="campus-slide <?= $idx === 0 ? 'active' : '' ?>" data-index="<?= $idx ?>">
-                                        <div
-                                            class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition duration-300 h-full">
-                                            <!-- Logo & nama -->
-                                            <div class="flex items-center gap-4 mb-6">
-                                                <div
-                                                    class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center overflow-hidden shadow-lg flex-shrink-0">
-                                                    <?php if (!empty($k['logo_kampus'])): ?>
-                                                        <img src="img/<?= htmlspecialchars($k['logo_kampus']) ?>"
-                                                            alt="Logo <?= htmlspecialchars($k['nama_kampus']) ?>"
-                                                            class="w-full h-full object-contain p-1">
-                                                    <?php else: ?>
-                                                        <span
-                                                            class="text-2xl font-black text-purple-600"><?= strtoupper(substr($k['nama_kampus'], 0, 2)) ?></span>
-                                                    <?php endif; ?>
-                                                </div>
-                                                <div>
-                                                    <h3 class="font-bold text-white text-lg leading-tight">
-                                                        <?= htmlspecialchars($k['nama_kampus']) ?></h3>
-                                                    <p class="text-slate-400 text-sm">📍 <?= htmlspecialchars($k['lokasi']) ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <!-- Badge akreditasi -->
-                                            <div class="flex flex-wrap gap-2 mb-4">
-                                                <span
-                                                    class="bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold px-3 py-1 rounded-full">
-                                                    Akreditasi <?= htmlspecialchars($k['akreditasi']) ?>
-                                                </span>
-                                                <span
-                                                    class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold px-3 py-1 rounded-full">
-                                                    <?= (int) $k['jumlah_prodi'] ?> Prodi
-                                                </span>
-                                            </div>
-                                            <!-- Estimasi biaya -->
-                                            <p class="text-slate-400 text-xs mb-6">💰
-                                                <?= htmlspecialchars($k['estimasi_biaya']) ?></p>
-                                            <a href="kampus.php"
-                                                class="block w-full text-center py-2.5 rounded-xl border border-white/20 text-white text-sm font-semibold hover:bg-white/10 transition">
-                                                Lihat Detail →
-                                            </a>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-
-                        <!-- Dot indicators -->
-                        <div class="flex justify-center gap-2 mt-8" id="sliderDots">
+                    <div class="overflow-hidden">
+                        <div id="campusTrack" class="campus-track">
                             <?php foreach ($top_kampus as $idx => $k): ?>
-                                <button onclick="goToSlide(<?= $idx ?>)"
-                                    class="dot w-2.5 h-2.5 rounded-full transition-all duration-300 <?= $idx === 0 ? 'bg-purple-400 w-6' : 'bg-slate-600' ?>">
-                                </button>
+                                <div class="campus-slide <?= $idx === 0 ? 'active' : '' ?>" data-index="<?= $idx ?>">
+                                    <div
+                                        class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition duration-300 h-full">
+                                        <!-- Logo & nama -->
+                                        <div class="flex items-center gap-4 mb-6">
+                                            <div
+                                                class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center overflow-hidden shadow-lg flex-shrink-0">
+                                                <?php if (!empty($k['logo_kampus'])): ?>
+                                                    <img src="img/<?= htmlspecialchars($k['logo_kampus']) ?>"
+                                                        alt="Logo <?= htmlspecialchars($k['nama_kampus']) ?>"
+                                                        class="w-full h-full object-contain p-1">
+                                                <?php else: ?>
+                                                    <span
+                                                        class="text-2xl font-black text-purple-600"><?= strtoupper(substr($k['nama_kampus'], 0, 2)) ?></span>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div>
+                                                <h3 class="font-bold text-white text-lg leading-tight">
+                                                    <?= htmlspecialchars($k['nama_kampus']) ?>
+                                                </h3>
+                                                <p class="text-slate-400 text-sm">📍 <?= htmlspecialchars($k['lokasi']) ?></p>
+                                            </div>
+                                        </div>
+                                        <!-- Badge akreditasi -->
+                                        <div class="flex flex-wrap gap-2 mb-4">
+                                            <span
+                                                class="bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold px-3 py-1 rounded-full">
+                                                Akreditasi <?= htmlspecialchars($k['akreditasi']) ?>
+                                            </span>
+                                            <span
+                                                class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold px-3 py-1 rounded-full">
+                                                <?= (int) $k['jumlah_prodi'] ?> Prodi
+                                            </span>
+                                        </div>
+                                        <!-- Estimasi biaya -->
+                                        <p class="text-slate-400 text-xs mb-6">💰 <?= htmlspecialchars($k['estimasi_biaya']) ?>
+                                        </p>
+                                        <a href="kampus.php"
+                                            class="block w-full text-center py-2.5 rounded-xl border border-white/20 text-white text-sm font-semibold hover:bg-white/10 transition">
+                                            Lihat Detail →
+                                        </a>
+                                    </div>
+                                </div>
                             <?php endforeach; ?>
                         </div>
-
-                        <!-- Prev / Next arrows -->
-                        <button onclick="prevSlide()"
-                            class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
-                            ‹
-                        </button>
-                        <button onclick="nextSlide()"
-                            class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
-                            ›
-                        </button>
                     </div>
-                <?php else: ?>
+
+                    <!-- Dot indicators -->
+                    <div class="flex justify-center gap-2 mt-8" id="sliderDots">
+                        <?php foreach ($top_kampus as $idx => $k): ?>
+                            <button onclick="goToSlide(<?= $idx ?>)"
+                                class="dot w-2.5 h-2.5 rounded-full transition-all duration-300 <?= $idx === 0 ? 'bg-purple-400 w-6' : 'bg-slate-600' ?>">
+                            </button>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <!-- Prev / Next arrows -->
+                    <button onclick="prevSlide()"
+                        class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">‹</button>
+                    <button onclick="nextSlide()"
+                        class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">›</button>
+                </div>
+            <?php else: ?>
+                <div class="container mx-auto px-4 lg:px-12">
                     <p class="text-center text-slate-500">Belum ada data kampus.</p>
-                <?php endif; ?>
-            </div>
+                </div>
+            <?php endif; ?>
         </section>
 
         <!-- ══════════════════════════════════════════ -->
