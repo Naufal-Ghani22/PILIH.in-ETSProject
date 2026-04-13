@@ -1,7 +1,13 @@
-* {
+/* ════════════════════════════════════════════════════
+   tentang.css  —  Styles khusus halaman Tentang Kami
+   Tidak di-import oleh halaman lain untuk menghindari
+   conflict dengan Tailwind output.css
+   ════════════════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 body {
@@ -58,8 +64,8 @@ body {
     animation: ping 1.5s cubic-bezier(0, 0, .2, 1) infinite;
 }
 
-/* ─── SECTION BASE ──────────────────────── */
-.container {
+/* ─── CONTAINER ─────────────────────────── */
+.t-container {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 2rem;
@@ -125,26 +131,6 @@ body {
     box-shadow: 0 2px 12px rgba(139, 92, 246, 0.08);
     margin-bottom: 2rem;
     backdrop-filter: blur(12px);
-}
-
-.hero-badge .dot-wrap {
-    position: relative;
-    width: 8px;
-    height: 8px;
-}
-
-.hero-badge .dot-ping {
-    position: absolute;
-    inset: 0;
-    background: rgba(168, 85, 247, 0.65);
-    border-radius: 50%;
-}
-
-.hero-badge .dot-solid {
-    position: absolute;
-    inset: 1px;
-    background: #9333ea;
-    border-radius: 50%;
 }
 
 .hero-badge span {
@@ -303,7 +289,6 @@ body {
     }
 
     .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
         gap: 0.75rem;
     }
 }
@@ -426,8 +411,8 @@ body {
 .upload-overlay svg {
     width: 24px;
     height: 24px;
-    color: #fff;
     stroke: #fff;
+    fill: none;
 }
 
 .upload-overlay span {
@@ -453,9 +438,9 @@ body {
     left: 50%;
     transform: translateX(-50%);
     color: #fff;
-    font-size: 0.65rem;
+    font-size: 0.68rem;
     font-weight: 800;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     padding: 5px 14px;
     border-radius: 999px;
     white-space: nowrap;
@@ -794,7 +779,6 @@ body {
     line-height: 1.8;
 }
 
-/* Misi grid */
 .misi-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1026,68 +1010,4 @@ body {
 
 .photo-revealed {
     animation: photoIn 0.4s ease forwards;
-}
-
-/* ── Slider kampus ── */
-.campus-track {
-    display: flex;
-    gap: 1.5rem;
-    transition: transform 0.5s cubic-bezier(.4, 0, .2, 1);
-}
-
-.campus-slide {
-    flex: 0 0 320px;
-    transition: transform 0.4s, box-shadow 0.4s, opacity 0.4s;
-    opacity: 0.6;
-    transform: scale(0.93);
-}
-
-.campus-slide.active {
-    opacity: 1;
-    transform: scale(1.04);
-}
-
-/* ── Tutorial connector line ── */
-.step-connector {
-    position: absolute;
-    top: 2.5rem;
-    left: calc(50% + 2.5rem);
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #a855f7, #6366f1);
-}
-
-.step-connector:last-child {
-    display: none;
-}
-
-/* ── FAQ accordion ── */
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease;
-}
-
-.faq-answer.open {
-    max-height: 400px;
-}
-
-.faq-icon {
-    transition: transform 0.3s;
-}
-
-.faq-item.open .faq-icon {
-    transform: rotate(45deg);
-}
-
-/* ── Scroll reveal ── */
-.reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity .6s ease, transform .6s ease;
-}
-
-.reveal.visible {
-    opacity: 1;
-    transform: none;
 }

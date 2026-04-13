@@ -13,9 +13,15 @@ if (session_status() === PHP_SESSION_NONE) {
         <!-- Desktop Menu -->
         <div class="hidden md:flex items-center gap-8">
             <a href="kampus.php"
-                class="text-slate-600 hover:text-purple-700 font-semibold text-sm transition">Eksplorasi Kampus</a>
+                class="text-slate-600 hover:text-purple-700 font-semibold text-sm transition">Kampus</a>
             <a href="katalog_jurusan.php"
-                class="text-slate-600 hover:text-purple-700 font-semibold text-sm transition">Katalog Jurusan</a>
+                class="text-slate-600 hover:text-purple-700 font-semibold text-sm transition">Jurusan</a>
+            <a href="tes.php" class="text-slate-600 hover:text-purple-700 font-semibold text-sm transition">Tes
+                Minat</a>
+            <a href="dashboard.php"
+                class="text-slate-600 hover:text-purple-700 font-semibold text-sm transition">Dashboard</a>
+            <a href="tentang.php"
+                class="text-slate-600 hover:text-purple-700 font-semibold text-sm transition">Tentang</a>
         </div>
 
         <div class="flex items-center gap-3">
