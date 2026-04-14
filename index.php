@@ -27,7 +27,7 @@ while ($r = mysqli_fetch_assoc($q_kampus))
     <meta name="description"
         content="PILIH.in membantu kamu menemukan jurusan dan kampus terbaik berdasarkan minat bakat. Dapatkan roadmap karir semester 1-8 secara instan.">
     <link href="./src/output.css" rel="stylesheet">
-    <link href="./src/style.css" rel="stylesheet">
+    <!-- <link href="./src/style.css" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         /* ── Slider kampus ── */
@@ -93,6 +93,11 @@ while ($r = mysqli_fetch_assoc($q_kampus))
             opacity: 1;
             transform: none;
         }
+
+        /* ── Scrollbar hide for mobile row ── */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
 
@@ -101,12 +106,20 @@ while ($r = mysqli_fetch_assoc($q_kampus))
 
     <?php include 'components/navbar.php'; ?>
 
+    <!-- Hero bg orbs –– fixed so they cover the entire viewport -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-300/40 rounded-full blur-[100px]">
+        </div>
+        <div class="absolute bottom-[20%] right-[-10%] w-[400px] h-[400px] bg-indigo-300/40 rounded-full blur-[100px]">
+        </div>
+    </div>
+
     <main class="flex-grow relative">
 
         <!-- ══════════════════════════════════════════ -->
         <!--  HERO SECTION                              -->
         <!-- ══════════════════════════════════════════ -->
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+        <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
             <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-300/40 rounded-full blur-[100px]">
             </div>
             <div
@@ -168,7 +181,7 @@ while ($r = mysqli_fetch_assoc($q_kampus))
                 </div>
 
                 <!-- Mock preview -->
-                <div class="mt-[-4rem] md:mt-[10rem] relative z-20 max-w-5xl mx-auto px-4">
+                <div class="mt-8 md:mt-12 relative z-20 max-w-5xl mx-auto px-4">
                     <div class="bg-white/80 backdrop-blur-xl border border-white/50 p-2 rounded-3xl shadow-2xl">
                         <div
                             class="bg-slate-50 border border-slate-100 rounded-2xl h-48 md:h-80 overflow-hidden relative flex items-center justify-center">
@@ -267,26 +280,38 @@ while ($r = mysqli_fetch_assoc($q_kampus))
                 ?>
 
                 <div class="relative">
-                    <!-- Garis horizontal di balik semua ikon -->
+                    <!-- Garis horizontal di balik semua ikon - hidden on mobile to avoid overflow issues -->
                     <div
-                        class="absolute top-9 left-[5%] right-[5%] h-0.5 bg-gradient-to-r from-purple-300 via-indigo-300 to-fuchsia-300 z-0">
+                        class="absolute top-9 left-[5%] right-[5%] h-0.5 bg-gradient-to-r from-purple-300 via-indigo-300 to-fuchsia-300 z-0 hidden lg:block">
                     </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem;"
-                        class="relative z-10 overflow-x-auto pb-4">
+                    <!-- Layout: Flex w/ horizontal scroll on mobile, Grid on desktop -->
+                    <div class="relative z-10 flex lg:grid lg:grid-cols-5 gap-6 lg:gap-6 overflow-x-auto pb-8 snap-x snap-mandatory no-scrollbar"
+                        style="scrollbar-width: none; -ms-overflow-style: none;">
                         <?php foreach ($steps as $i => $s): ?>
-                            <div class="reveal flex flex-col items-center text-center px-2"
+                            <div class="reveal flex flex-col items-center text-center px-4 flex-shrink-0 w-72 lg:w-auto snap-center"
                                 style="transition-delay: <?= $i * 100 ?>ms">
                                 <!-- Ikon -->
-                                <div class="relative mb-4 shrink-0">
+                                <div class="relative mb-6 shrink-0">
                                     <div
-                                        class="w-16 h-16 sm:w-[4.5rem] sm:h-[4.5rem] rounded-full bg-gradient-to-br <?= $s['color'] ?> flex items-center justify-center shadow-lg hover:scale-110 transition duration-300 ring-4 ring-white z-10 relative">
+                                        class="w-16 h-16 sm:w-[5rem] sm:h-[5rem] rounded-full bg-gradient-to-br <?= $s['color'] ?> flex items-center justify-center shadow-lg hover:scale-110 transition duration-300 ring-4 ring-white z-10 relative">
                                         <?= $s['emoji'] ?>
                                     </div>
+                                    <?php if ($i < count($steps) - 1): ?>
+                                        <!-- Connector Arrow for mobile -->
+                                        <div class="absolute top-1/2 -right-12 -translate-y-1/2 lg:hidden text-purple-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                            </svg>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <!-- Teks -->
-                                <h3 class="font-bold text-slate-800 text-xl sm:text-sm mb-1"><?= $s['title'] ?></h3>
-                                <p class="text-slate-500 text-[10px] sm:text-xs leading-relaxed"><?= $s['desc'] ?></p>
+                                <h3 class="font-bold text-slate-800 text-lg lg:text-base mb-2"><?= $s['title'] ?></h3>
+                                <p class="text-slate-500 text-sm lg:text-xs leading-relaxed max-w-[14rem] mx-auto">
+                                    <?= $s['desc'] ?></p>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -393,9 +418,9 @@ while ($r = mysqli_fetch_assoc($q_kampus))
 
                     <!-- Prev / Next arrows -->
                     <button onclick="prevSlide()"
-                        class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">‹</button>
+                        class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-slate-800/50 backdrop-blur-md hover:bg-slate-700/80 border border-white/10 text-white flex items-center justify-center transition shadow-lg">‹</button>
                     <button onclick="nextSlide()"
-                        class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">›</button>
+                        class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-slate-800/50 backdrop-blur-md hover:bg-slate-700/80 border border-white/10 text-white flex items-center justify-center transition shadow-lg">›</button>
                 </div>
             <?php else: ?>
                 <div class="container mx-auto px-4 lg:px-12">

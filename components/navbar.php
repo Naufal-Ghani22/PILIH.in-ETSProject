@@ -74,12 +74,22 @@ if (session_status() === PHP_SESSION_NONE) {
     <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-slate-100">
         <div class="px-4 pt-2 pb-4 space-y-1 shadow-inner">
             <a href="kampus.php"
-                class="block px-3 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-purple-50">Eksplorasi
-                Kampus</a>
+                class="block px-3 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-purple-50">Kampus</a>
             <a href="katalog_jurusan.php"
-                class="block px-3 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-purple-50">Katalog
-                Jurusan</a>
-            <?php if (!isset($_SESSION['user_id'])): ?>
+                class="block px-3 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-purple-50">Jurusan</a>
+            <a href="tes.php"
+                class="block px-3 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-purple-50">Tes Minat</a>
+            <a href="dashboard.php"
+                class="block px-3 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-purple-50">Dashboard</a>
+            <a href="tentang.php"
+                class="block px-3 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-purple-50">Tentang</a>
+            
+            <div class="border-t border-slate-100 my-2"></div>
+            
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="logout.php"
+                    class="block px-3 py-3 rounded-xl text-base font-medium text-red-600 hover:bg-red-50">Logout</a>
+            <?php else: ?>
                 <a href="auth.php"
                     class="block px-3 py-3 rounded-xl text-base font-medium text-purple-600 hover:bg-purple-50">Login</a>
             <?php endif; ?>
